@@ -43,7 +43,7 @@
 <link rel="stylesheet" href="<?php echo $URL; ?>assets/css/demo.css" />
 <link rel="stylesheet" href="<?php echo $URL; ?>dist/css/style.min.css" />
 </head>
-<body>
+<body class="p-0">
     
     <div class="wrapper">
       <!-- Sidebar -->
@@ -52,12 +52,13 @@
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
             <a href="<?php echo $URL; ?>index.php" class="logo">
-              <img
+              <!-- <img
                 src="<?php echo $URL; ?>assets/img/kaiadmin/logo_light.svg"
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"
-              />
+              /> -->
+              <h3 class="text-white #dashboard fw-light"><span class="fw-bold">JM</span>expeditions</h3>
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">
@@ -231,8 +232,13 @@
                       </a>
                     </li>
                     <li>
-                      <a href="maps/jsvectormap.html">
-                        <span class="sub-item">Jsvectormap</span>
+                      <a href="<?php echo $URL; ?>/pages/destinos/lista-destino.php">
+                        <span class="sub-item">Lista destinos</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="<?php echo $URL; ?>/pages/categorias/index.php">
+                        <span class="sub-item">Categorias</span>
                       </a>
                     </li>
                   </ul>
@@ -669,7 +675,7 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold">Admin</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">

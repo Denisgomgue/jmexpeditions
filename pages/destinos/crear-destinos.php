@@ -1,6 +1,8 @@
 <?php
 include '../../app/controller/config.php';
 include '../layouts/header.php';
+include '../../app/controller/categorias/listar-categoria.php';
+include '../../app/controller/destinos/create.php';
 
 ?>
 
@@ -29,7 +31,8 @@ include '../layouts/header.php';
       </ul>
     </div>
     <!--Eliminados-->
-    <div class="row">
+    <!--CONTENIDO INICIO-->
+    <div class="col  m-0">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
@@ -37,13 +40,13 @@ include '../layouts/header.php';
           </div>
           <div class="card-body">
             <div class="row">
-              <form action="ruta_al_script_de_procesamiento.php" method="post" enctype="multipart/form-data">
+              <form action="../../app/controller/destinos/create.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
-                    
+
                     <div class="form-group">
                       <label for="nombre">Nombre del Destino</label>
-                      <input type="text" class="form-control" id="nombre" name="nombre" required>
+                      <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="generarCodigo()" required>
                     </div>
                     <div class="form-group">
                       <label for="ubicacion">Ubicación</label>
@@ -57,21 +60,26 @@ include '../layouts/header.php';
                       <label for="provincia">Provincia</label>
                       <input type="text" class="form-control" id="provincia" name="provincia" required>
                     </div>
-                    
+
                   </div>
                   <div class="col-md-6">
-                  <div class="form-group">
+                    <div class="form-group">
                       <label for="codigo">Código</label>
-                      <input type="text" class="form-control" id="codigo" name="codigo" required>
+                      <input type="text" class="form-control" id="codigo" name="codigo" readonly>
                     </div>
                     <div class="form-group">
                       <label for="categoria">Categoría</label>
-                      <select class="form-control" id="categoria" name="categoria" required>
-                        <!-- Aquí deberías cargar las categorías desde la base de datos -->
-                        <option value="">Seleccione una categoría</option>
-                        <option value="1">Categoría 1</option>
-                        <option value="2">Categoría 2</option>
-                        <option value="3">Categoría 3</option>
+                      <select class="form-control" id="categoria" onchange="generarCodigo()" name="categoria" required>
+                        <?php
+                        // Iterar a través de las categorías y crear opciones para la lista desplegable
+                        if (!empty($categorias_datos)) {
+                          foreach ($categorias_datos as $categoria) {
+                            echo "<option value='" . $categoria['id_categoria'] . "'>" . htmlspecialchars($categoria['nombre_categoria']) . "</option>";
+                          }
+                        } else {
+                          echo "<option value=''>No hay categorías disponibles</option>";
+                        }
+                        ?>
                       </select>
                     </div>
                     <div class="form-group">
@@ -82,7 +90,7 @@ include '../layouts/header.php';
                       <label for="descripcion">Breve Descripción</label>
                       <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                     </div>
-                    
+
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
@@ -103,22 +111,25 @@ include '../layouts/header.php';
                       </div>
                     </div>
                   </div>
-
-
+                  <div class="card-action">
+                    <?php include '../../app/controller/destinos/create.php'; 
+                     // Para verificar la ruta completa
+                    ?>
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                    <button class="btn btn-danger">Nuevo</button>
+                    <button class="btn btn-info">Actualizar</button>
+                  </div>
                 </div>
-
               </form>
-              <div class="card-action">
-                <button class="btn btn-success">Registrar</button>
-                <button class="btn btn-danger">Nuevo</button>
-                <button class="btn btn-info">Actualizar</button>
-              </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!--CONTENIDO FIN-->
   </div>
+</div>
 
 
-  <?php include '../layouts/footer.php'; ?>
+<?php include '../layouts/footer.php'; ?>
