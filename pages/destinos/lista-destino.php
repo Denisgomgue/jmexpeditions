@@ -73,7 +73,7 @@ include '../../app/controller/destinos/listar-destino.php';
 
                                             <td>
                                                 <?php echo htmlspecialchars($destinos_dato['ubicacion_destino']); ?><br>
-                                                <span class="text-muted"><?php echo htmlspecialchars($destinos_dato['region_destino']); ?></span><br>
+                                                <span class="text-muted"><?php echo htmlspecialchars($destinos_dato['region_destino']); ?></span>, 
                                                 <code><?php echo htmlspecialchars($destinos_dato['provincia_destino']); ?></code>
                                             </td>
                                             <td><?php echo htmlspecialchars($destinos_dato['dias_destino']); ?></td>

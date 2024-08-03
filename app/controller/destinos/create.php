@@ -53,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':imagen3' => $foto3_name
     ]);
 
-    header("Location: notificaciones.php?status=success");
     echo "Enviado formulario.";
     exit();
 } else {
