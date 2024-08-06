@@ -90,9 +90,15 @@ include '../../app/controller/destinos/listar-destino.php';
                                             <td><?php echo $codigo_destino; ?></td>
                                             <td><?php echo $nombre_destino; ?></td>
                                             <td>
+<<<<<<< HEAD:pages/destinos/index.php
                                                 <?php echo $ubicacion_destino; ?><br>
                                                 <span class="text-muted"><?php echo $region_destino; ?></span>, 
                                                 <code><?php echo $provincia_destino; ?></code>
+=======
+                                                <?php echo htmlspecialchars($destinos_dato['ubicacion_destino']); ?><br>
+                                                <span class="text-muted"><?php echo htmlspecialchars($destinos_dato['region_destino']); ?></span>, 
+                                                <code><?php echo htmlspecialchars($destinos_dato['provincia_destino']); ?></code>
+>>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5:pages/destinos/lista-destino.php
                                             </td>
                                             <td><?php echo $dias_destino; ?></td>
                                             <td><?php echo $nombre_categoria; ?></td>

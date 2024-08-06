@@ -28,6 +28,7 @@ document.querySelectorAll('.dropzone').forEach((dropzone) => {
   });
 });
 
+/*CODIGO DE LOS INPUT DE SUBIDA  DE IMAGENES*/
 document.addEventListener("DOMContentLoaded", function () {
   const fileInputs = document.querySelectorAll('.image-upload input[type="file"]');
 
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+/*FIN CODIGO DE LOS INPUT DE SUBIDA  DE IMAGENES*/
 
 /**CODIGO DE DESTINO */
 function generarCodigo() {
@@ -140,3 +142,37 @@ function ocultarFormularioActualizar() {
 console.log("Hola amigutos ")
 
 
+<<<<<<< HEAD
+=======
+/**FIN CODIGO DE DESTINO */
+
+/****Codigo de categorias */
+function generarCodigoCategoria() {
+  document.getElementById('id_categoria').value = "";
+  var nombre = document.getElementById('nombre_categoria').value.trim();
+  var codigo = 'CA';
+  
+  if (nombre) {
+      var palabras = nombre.split(' ');
+      if (palabras.length > 1) {
+          // Más de una palabra
+          var parte1 = palabras[0].substring(0, 2).toUpperCase();
+          var parte2 = palabras[1].substring(0, 2).toUpperCase();
+          codigo += parte1 + parte2;
+      } else {
+          // Solo una palabra
+          var parte = nombre.substring(0, 4).toUpperCase();
+          codigo += parte;
+      }
+  }
+  
+  // Limitar el código a 6 caracteres
+  if (codigo.length > 6) {
+      codigo = codigo.substring(0, 6);
+  }
+  
+  document.getElementById('id_categoria').value = codigo;
+}
+
+/****FIN Codigo de categorias */
+>>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5
