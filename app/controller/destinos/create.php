@@ -1,19 +1,19 @@
 <?php
 require_once dirname(__DIR__) . '/config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recibir datos del formulario
     $nombre = $_POST['nombre'];
     $ubicacion = $_POST['ubicacion'];
     $departamento = $_POST['departamento'];
     $provincia = $_POST['provincia'];
-    $codigo = $_POST['codigo'];
+    $codigo = $_POST['codigo']; // Este es el código de destino, no el id
     $categoria = $_POST['categoria'];
     $numero_dias = $_POST['numero_dias'];
     $descripcion = $_POST['descripcion'];
 
     // Ruta para almacenar las imágenes
     $upload_dir = __DIR__ . '/../public/uploads/';
-    // Cambia esta ruta a tu directorio de subida
 
     // Manejar archivos subidos
     $foto1_name = $_FILES['fotos']['name'][0];
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($foto3_tmp, $foto3_dest);
 
     // Insertar datos en la base de datos
-    $sql = "INSERT INTO destinos (nombre_destino, ubicacion_destino, region_destino, provincia_destino, id_destino, id_categoria, dias_destino, descripcion_destino, imagen1_destino, imagen2_destino, imagen3_destino) VALUES (:nombre, :ubicacion, :departamento, :provincia, :codigo, :categoria, :numero_dias, :descripcion, :imagen1, :imagen2, :imagen3)";
+    $sql = "INSERT INTO destinos (nombre_destino, ubicacion_destino, region_destino, provincia_destino, codigo_destino, id_categoria, dias_destino, descripcion_destino, imagen1_destino, imagen2_destino, imagen3_destino) VALUES (:nombre, :ubicacion, :departamento, :provincia, :codigo, :categoria, :numero_dias, :descripcion, :imagen1, :imagen2, :imagen3)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':ubicacion' => $ubicacion,
         ':departamento' => $departamento,
         ':provincia' => $provincia,
-        ':codigo' => $codigo,
+        ':codigo' => $codigo, // Este es el código de destino, no el id
         ':categoria' => $categoria,
         ':numero_dias' => $numero_dias,
         ':descripcion' => $descripcion,
@@ -53,12 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':imagen3' => $foto3_name
     ]);
 
-    header("Location: notificaciones.php?status=success");
-    echo "Enviado formulario.";
+    // Mostrar notificación si se pasó el parámetro status
+    header("Location: ../../../pages/destinos/index.php?message=" . urlencode("El destino se registró con éxito"));
     exit();
 } else {
     echo "No se ha enviado ningún formulario.";
 }
+
+
 
 // Obtener el id_destino desde una consulta o parámetro
 /*

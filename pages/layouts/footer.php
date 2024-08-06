@@ -122,6 +122,7 @@
 <!-- <script src="<?php echo $URL; ?>/assets/js/demo.js"></script> -->
 
 <script src="<?php echo $URL; ?>/dist/js/main.min.js"></script>
+
 <script>
   $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
     type: "line",

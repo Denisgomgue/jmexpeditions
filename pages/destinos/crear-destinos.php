@@ -70,6 +70,7 @@ include '../../app/controller/destinos/create.php';
                     <div class="form-group">
                       <label for="categoria">Categoría</label>
                       <select class="form-control" id="categoria" onchange="generarCodigo()" name="categoria" required>
+                        <option value=" " readonly>--- Seleccione alguna categoria ---</option>
                         <?php
                         // Iterar a través de las categorías y crear opciones para la lista desplegable
                         if (!empty($categorias_datos)) {
@@ -112,9 +113,7 @@ include '../../app/controller/destinos/create.php';
                     </div>
                   </div>
                   <div class="card-action">
-                    <?php include '../../app/controller/destinos/create.php'; 
-                     // Para verificar la ruta completa
-                    ?>
+                    
                     <button type="submit" class="btn btn-success">Registrar</button>
                     <button class="btn btn-danger">Nuevo</button>
                     <button class="btn btn-info">Actualizar</button>

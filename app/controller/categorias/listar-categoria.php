@@ -15,9 +15,10 @@ if (!isset($pdo)) {
 try {
     // Consulta para obtener las categorías
     $sql_categorias = "SELECT 
-        id_categoria as id_categoria, 
-        nombre_categoria as nombre_categoria, 
-        descripcion_categoria as descripcion_categoria 
+        id_categoria, 
+        cod_categoria, 
+        nombre_categoria, 
+        descripcion_categoria 
         FROM categorias";
 
     $query_categorias = $pdo->prepare($sql_categorias);

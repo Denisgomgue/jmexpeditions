@@ -66,23 +66,23 @@ function generarCodigo() {
   var ubicacionPartes = ubicacion.trim().split(' ');
 
   if (destinoPartes.length >= 2) {
-      var primeraParteDestino = destinoPartes[0].substring(0, 2).toUpperCase();
-      var segundaParteDestino = destinoPartes[1].substring(0, 2).toUpperCase();
-      codigo += primeraParteDestino + segundaParteDestino;
+    var primeraParteDestino = destinoPartes[0].substring(0, 2).toUpperCase();
+    var segundaParteDestino = destinoPartes[1].substring(0, 2).toUpperCase();
+    codigo += primeraParteDestino + segundaParteDestino;
   } else if (destinoPartes.length === 1 && destinoPartes[0].length >= 4) {
-      codigo += destinoPartes[0].substring(0, 4).toUpperCase();
+    codigo += destinoPartes[0].substring(0, 4).toUpperCase();
   } else {
-      codigo += destinoPartes[0].substring(0, 2).toUpperCase();
+    codigo += destinoPartes[0].substring(0, 2).toUpperCase();
   }
 
   if (ubicacionPartes.length >= 2) {
-      var primeraParteUbicacion = ubicacionPartes[0].substring(0, 2).toUpperCase();
-      var segundaParteUbicacion = ubicacionPartes[1].substring(0, 2).toUpperCase();
-      codigo += primeraParteUbicacion + segundaParteUbicacion;
+    var primeraParteUbicacion = ubicacionPartes[0].substring(0, 2).toUpperCase();
+    var segundaParteUbicacion = ubicacionPartes[1].substring(0, 2).toUpperCase();
+    codigo += primeraParteUbicacion + segundaParteUbicacion;
   } else if (ubicacionPartes.length === 1 && ubicacionPartes[0].length >= 4) {
-      codigo += ubicacionPartes[0].substring(0, 4).toUpperCase();
+    codigo += ubicacionPartes[0].substring(0, 4).toUpperCase();
   } else {
-      codigo += ubicacionPartes[0].substring(0, 2).toUpperCase();
+    codigo += ubicacionPartes[0].substring(0, 2).toUpperCase();
   }
 
   var randomNum = Math.floor(Math.random() * 100).toString().padStart(2, '0');
@@ -90,5 +90,53 @@ function generarCodigo() {
 
   document.getElementById('codigo').value = codigo;
 }
-
 /**FIN CODIGO DE DESTINO */
+
+
+/****Codigo de categorias */
+function generarCodigoCategoria() {
+  var nombre = document.getElementById('nombre_categoria').value.trim();
+  var codigo = 'CA';
+  
+  if (nombre) {
+      var palabras = nombre.split(' ');
+      if (palabras.length > 1) {
+          var parte1 = palabras[0].substring(0, 2).toUpperCase();
+          var parte2 = palabras[1].substring(0, 2).toUpperCase();
+          codigo += parte1 + parte2;
+      } else {
+          var parte = nombre.substring(0, 4).toUpperCase();
+          codigo += parte;
+      }
+  }
+  
+  if (codigo.length > 6) {
+      codigo = codigo.substring(0, 6);
+  }
+  
+  document.getElementById('cod_categoria').value = codigo;
+}
+
+/****FIN Codigo de categorias */
+
+
+/**Mostrar Formulario de actualizar Categoria */
+function mostrarFormularioActualizar(id, codigo, nombre, descripcion) {
+  document.getElementById('id_categoria_act').value = id;
+  document.getElementById('cod_categoria_act').value = codigo;
+  document.getElementById('nombre_categoria_act').value = nombre;
+  document.getElementById('descripcion_categoria_act').value = descripcion;
+  document.getElementById('form_registrar').style.display = 'none';
+  document.getElementById('form_actualizar').style.display = 'block';
+}
+
+function ocultarFormularioActualizar() {
+  document.getElementById('form_registrar').style.display = 'block';
+  document.getElementById('form_actualizar').style.display = 'none';
+}
+
+
+/**FIN Formulario de actualizar Categoria  */
+console.log("Hola amigutos ")
+
+
