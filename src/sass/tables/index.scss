@@ -1,0 +1,13 @@
+/* Asegúrate de que las tablas no se desborden del contenedor */
+@import url('variables');
+
+
+.table th {
+    background-color: $color-primary;
+}
+
+
+table {
+    max-width: 100%;
+}
+

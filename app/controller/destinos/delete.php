@@ -18,8 +18,8 @@ if (isset($_GET['id'])) {
 
         // Redireccionar a la lista de destinos después de eliminar
         header("Location: ../../../pages/destinos/index.php?message=" . urlencode("El destino ha sido eliminado con éxito"));
+        header("Location: ../../../pages/destinos/");
         exit();
-        header("Location: ../../../pages/destinos/")
     } catch (PDOException $e) {
         echo "Error al eliminar el destino: " . $e->getMessage();
     }

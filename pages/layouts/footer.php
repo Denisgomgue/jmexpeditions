@@ -121,12 +121,8 @@
 <script src="<?php echo $URL; ?>assets/js/setting-demo.js"></script>
 <!-- <script src="<?php echo $URL; ?>assets/js/demo.js"></script> -->
 
-<<<<<<< HEAD
-<script src="<?php echo $URL; ?>/dist/js/main.min.js"></script>
 
-=======
 <script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script>
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5
 <script>
   $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
     type: "line",

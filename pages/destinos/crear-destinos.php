@@ -3,7 +3,6 @@ include '../../app/controller/config.php';
 include '../layouts/header.php';
 include '../../app/controller/categorias/listar-categoria.php';
 include '../../app/controller/destinos/create.php';
-
 ?>
 
 <div class="container">
@@ -43,7 +42,6 @@ include '../../app/controller/destinos/create.php';
               <form action="../../app/controller/destinos/create.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
-
                     <div class="form-group">
                       <label for="nombre">Nombre del Destino</label>
                       <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="generarCodigo()" required>
@@ -60,7 +58,10 @@ include '../../app/controller/destinos/create.php';
                       <label for="provincia">Provincia</label>
                       <input type="text" class="form-control" id="provincia" name="provincia" required>
                     </div>
-
+                    <div class="form-group">
+                      <label for="parque_reserva">Parque o Reserva</label>
+                      <input type="text" class="form-control" id="parque_reserva" name="parque_reserva" required>
+                    </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
@@ -91,7 +92,6 @@ include '../../app/controller/destinos/create.php';
                       <label for="descripcion">Breve Descripción</label>
                       <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                     </div>
-
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
@@ -113,14 +113,12 @@ include '../../app/controller/destinos/create.php';
                     </div>
                   </div>
                   <div class="card-action">
-                    
                     <button type="submit" class="btn btn-success">Registrar</button>
                     <button class="btn btn-danger">Nuevo</button>
                     <button class="btn btn-info">Actualizar</button>
                   </div>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -129,6 +127,5 @@ include '../../app/controller/destinos/create.php';
     <!--CONTENIDO FIN-->
   </div>
 </div>
-
 
 <?php include '../layouts/footer.php'; ?>

@@ -14,7 +14,7 @@ if (!isset($pdo)) {
 }
 
 try {
-    // Consulta para obtener los destinos
+    // Consulta para obtener los destinos, incluyendo parque_reserva_destino
     $sql_destinos = "SELECT 
         de.id_destino as id_destino, 
         de.codigo_destino as codigo_destino,
@@ -24,6 +24,7 @@ try {
         de.provincia_destino as provincia_destino,
         de.dias_destino as dias_destino, 
         de.descripcion_destino as descripcion_destino, 
+        de.parque_reserva_destino as parque_reserva_destino,
         cat.nombre_categoria as nombre_categoria 
         FROM destinos as de 
         INNER JOIN categorias as cat ON de.id_categoria = cat.id_categoria";
