@@ -135,7 +135,7 @@ if (isset($_GET['id_categoria'])) {
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <table class="table text-nowrap">
+                            <table class="table text-wrap">
                                 <thead>
                                     <tr>
                                         <th class="border-top-0">#</th>

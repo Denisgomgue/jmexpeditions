@@ -71,8 +71,8 @@ include '../../app/controller/destinos/update.php';
                         <div class="card-title">Listado de destinos</div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table text-nowrap">
+                        <div class="row">
+                            <table class="table text-wrap">
                                 <thead>
                                     <tr>
                                         <th class="border-top-0">#</th>
