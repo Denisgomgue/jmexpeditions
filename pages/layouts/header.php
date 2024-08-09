@@ -41,7 +41,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel="stylesheet" href="<?php echo $URL; ?>assets/css/demo.css" />
   <link rel="stylesheet" href="<?php echo $URL; ?>dist/css/style.min.css" />
-  <script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script>
+  <!-- <script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script> -->
   <link rel="stylesheet" href="<?php echo $URL; ?>assets/css/demo.css" />
   <link rel="stylesheet" href="<?php echo $URL; ?>dist/css/style.min.css" />
   <script src="<?php echo $URL; ?>/assets/js/core/jquery-3.7.1.min.js"></script>
@@ -82,7 +82,7 @@
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
           <ul class="nav nav-secondary">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
                 <i class="fas fa-home"></i>
                 <p>Dashboard</p>

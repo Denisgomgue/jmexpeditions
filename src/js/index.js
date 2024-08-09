@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function generarCodigo() {
   var destino = document.getElementById('nombre').value;
   var ubicacion = document.getElementById('ubicacion').value;
-  var categoria = document.getElementById('categoria').value;
+  var categoria = document.getElementById('id_categoria').value;
 
   var codigo = '';
 

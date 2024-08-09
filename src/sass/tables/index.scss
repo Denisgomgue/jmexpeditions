@@ -1,9 +1,9 @@
 /* Asegúrate de que las tablas no se desborden del contenedor */
-@import url('variables');
+@import '../variables';
 
 
 .table th {
-    background-color: $color-primary;
+    background-color: $color-primari;
 }
 
 
