@@ -6,17 +6,11 @@ const cssnano = require('gulp-cssnano');
 const rename = require('gulp-rename');
 const browserSync = require('browser-sync').create();
 
-async function optimizeImages() {
-  const imagemin = (await import('gulp-imagemin')).default;
-  return src('src/images/**/*')
-    .pipe(imagemin())
-    .pipe(dest('dist/images'));
-}
-
+// Definir los paths aquí
 const paths = {
   sass: 'src/sass/**/*.scss',
   js: 'src/js/**/*.js',
-  images: 'src/images/**/*'
+  // images: 'src/images/**/*' // Comentado porque no se va a usar ahora
 };
 
 function compileSass() {
@@ -45,12 +39,12 @@ function serve(done) {
   });
   watch(paths.sass, compileSass);
   watch(paths.js, minifyJs);
-  watch(paths.images, optimizeImages);
+  // watch(paths.images, optimizeImages); // Comentado porque no se va a usar ahora
   watch('./*.php').on('change', browserSync.reload);
   done();
 }
 
 exports.default = series(
-  parallel(compileSass, minifyJs, optimizeImages),
+  parallel(compileSass, minifyJs),
   serve
 );
