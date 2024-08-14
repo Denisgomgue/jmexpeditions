@@ -7,14 +7,14 @@
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="<?php echo $URL; ?>assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
-<<<<<<< HEAD
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="<?php echo $URL; ?>assets/css/demo.css" />
-<link rel="stylesheet" href="<?php echo $URL; ?>dist/css/style.min.css" />
-<script src="<?php echo $URL; ?>dist/js/main.min.js"></script>
-<script src="<?php echo $URL; ?>/assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="<?php echo $URL; ?>/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-=======
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+
+  <!-- DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
   <!-- Fonts and icons -->
   <script src="<?php echo $URL; ?>assets/js/plugin/webfont/webfont.min.js"></script>
   <script>
@@ -45,16 +45,15 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel="stylesheet" href="<?php echo $URL; ?>assets/css/demo.css" />
   <link rel="stylesheet" href="<?php echo $URL; ?>dist/css/style.min.css" />
-  <script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script>
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5
+  <!-- <script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script> -->
+  <link rel="stylesheet" href="<?php echo $URL; ?>assets/css/demo.css" />
+  <link rel="stylesheet" href="<?php echo $URL; ?>dist/css/style.min.css" />
+  <script src="<?php echo $URL; ?>/assets/js/core/jquery-3.7.1.min.js"></script>
+  <script src="<?php echo $URL; ?>/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+  <script src="<?php echo $URL; ?>dist/js/main.min.js"></script>
 </head>
 
 <body class="p-0">
-<<<<<<< HEAD
-    
-   
-=======
-
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
@@ -87,7 +86,7 @@
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
           <ul class="nav nav-secondary">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
                 <i class="fas fa-home"></i>
                 <p>Dashboard</p>
@@ -232,17 +231,22 @@
               <div class="collapse" id="maps">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="<?php echo $URL; ?>/pages/destinos/crear-destinos.php">
+                    <a href="<?php echo $URL; ?>pages/destinos/crear-destinos.php">
                       <span class="sub-item">Registro de destinos</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $URL; ?>/pages/destinos/lista-destino.php">
+                    <a href="<?php echo $URL; ?>pages/destinos/index.php">
                       <span class="sub-item">Lista destinos</span>
                     </a>
                   </li>
                   <li>
-                    <a href="<?php echo $URL; ?>/pages/categorias/index.php">
+                    <a href="<?php echo $URL; ?>pages/destinos/vista-destinos.php">
+                      <span class="sub-item">Vista destinos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?php echo $URL; ?>pages/categorias/index.php">
                       <span class="sub-item">Categorias</span>
                     </a>
                   </li>
@@ -626,4 +630,3 @@
         </nav>
         <!-- End Navbar -->
       </div>
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5

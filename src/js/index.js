@@ -1,3 +1,4 @@
+// Manejo de la zona de arrastre y caída de archivos
 document.querySelectorAll('.dropzone').forEach((dropzone) => {
   const input = dropzone.querySelector('.custom-file-input');
   const label = dropzone.querySelector('.custom-file-label');
@@ -18,39 +19,59 @@ document.querySelectorAll('.dropzone').forEach((dropzone) => {
     if (files.length) {
       input.files = files;
       label.textContent = files[0].name;
+
+      // Llamar a la función para mostrar la imagen
+      showImage(input);
     }
   });
 
   input.addEventListener('change', () => {
     if (input.files.length) {
       label.textContent = input.files[0].name;
+
+      // Llamar a la función para mostrar la imagen
+      showImage(input);
     }
   });
 });
 
-/*CODIGO DE LOS INPUT DE SUBIDA  DE IMAGENES*/
+// Función para mostrar la imagen cargada
+function showImage(input) {
+  const label = input.parentElement;
+  const icon = label.querySelector('i');
+  let img = label.querySelector('img');
+
+  // Si ya hay una imagen, quítala antes de añadir la nueva
+  if (img) {
+    img.remove();
+  }
+
+  if (input.files && input.files[0]) {
+    img = document.createElement('img'); // Crear un nuevo elemento de imagen
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      img.src = e.target.result;
+      img.style.display = 'block'; // Mostrar la imagen
+      img.style.maxWidth = '100%'; // Asegurar que la imagen no exceda el contenedor
+      img.style.height = 'auto'; // Mantener la proporción de la imagen
+      icon.style.display = 'none'; // Ocultar el ícono de carga
+      label.appendChild(img); // Añadir la imagen al contenedor
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    icon.style.display = 'block'; // Mostrar el ícono de carga si no hay archivo
+  }
+}
+
+// Asegurar que se cargue el código cuando el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", function () {
   const fileInputs = document.querySelectorAll('.image-upload input[type="file"]');
 
   fileInputs.forEach(input => {
     input.addEventListener('change', function () {
-      const label = input.parentElement;
-      const icon = label.querySelector('i');
-      const img = label.querySelector('img') || document.createElement('img');
-
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          img.src = e.target.result;
-          img.style.display = 'block';
-          icon.style.display = 'none';
-          label.appendChild(img);
-        }
-        reader.readAsDataURL(input.files[0]);
-      } else {
-        img.style.display = 'none';
-        icon.style.display = 'block';
-      }
+      showImage(input);
     });
   });
 });
@@ -60,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function generarCodigo() {
   var destino = document.getElementById('nombre').value;
   var ubicacion = document.getElementById('ubicacion').value;
-  var categoria = document.getElementById('categoria').value;
+  var categoria = document.getElementById('id_categoria').value;
 
   var codigo = '';
 
@@ -99,23 +120,23 @@ function generarCodigo() {
 function generarCodigoCategoria() {
   var nombre = document.getElementById('nombre_categoria').value.trim();
   var codigo = 'CA';
-  
+
   if (nombre) {
-      var palabras = nombre.split(' ');
-      if (palabras.length > 1) {
-          var parte1 = palabras[0].substring(0, 2).toUpperCase();
-          var parte2 = palabras[1].substring(0, 2).toUpperCase();
-          codigo += parte1 + parte2;
-      } else {
-          var parte = nombre.substring(0, 4).toUpperCase();
-          codigo += parte;
-      }
+    var palabras = nombre.split(' ');
+    if (palabras.length > 1) {
+      var parte1 = palabras[0].substring(0, 2).toUpperCase();
+      var parte2 = palabras[1].substring(0, 2).toUpperCase();
+      codigo += parte1 + parte2;
+    } else {
+      var parte = nombre.substring(0, 4).toUpperCase();
+      codigo += parte;
+    }
   }
-  
+
   if (codigo.length > 6) {
-      codigo = codigo.substring(0, 6);
+    codigo = codigo.substring(0, 6);
   }
-  
+
   document.getElementById('cod_categoria').value = codigo;
 }
 
@@ -142,37 +163,3 @@ function ocultarFormularioActualizar() {
 console.log("Hola amigutos ")
 
 
-<<<<<<< HEAD
-=======
-/**FIN CODIGO DE DESTINO */
-
-/****Codigo de categorias */
-function generarCodigoCategoria() {
-  document.getElementById('id_categoria').value = "";
-  var nombre = document.getElementById('nombre_categoria').value.trim();
-  var codigo = 'CA';
-  
-  if (nombre) {
-      var palabras = nombre.split(' ');
-      if (palabras.length > 1) {
-          // Más de una palabra
-          var parte1 = palabras[0].substring(0, 2).toUpperCase();
-          var parte2 = palabras[1].substring(0, 2).toUpperCase();
-          codigo += parte1 + parte2;
-      } else {
-          // Solo una palabra
-          var parte = nombre.substring(0, 4).toUpperCase();
-          codigo += parte;
-      }
-  }
-  
-  // Limitar el código a 6 caracteres
-  if (codigo.length > 6) {
-      codigo = codigo.substring(0, 6);
-  }
-  
-  document.getElementById('id_categoria').value = codigo;
-}
-
-/****FIN Codigo de categorias */
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5

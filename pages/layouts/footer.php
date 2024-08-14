@@ -17,13 +17,13 @@
       </ul>
     </nav>
     <div class="copyright">
-      2024, made with <i class="fa fa-heart heart text-danger"></i> by
+      2024, Hecho por
       <a href="http://jmexpeditions.com">JMexpeditions</a>
     </div>
-    <div>
+    <!-- <div>
       Distributed by
       <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-    </div>
+    </div> -->
   </div>
 </footer>
 </div>
@@ -121,12 +121,8 @@
 <script src="<?php echo $URL; ?>assets/js/setting-demo.js"></script>
 <!-- <script src="<?php echo $URL; ?>assets/js/demo.js"></script> -->
 
-<<<<<<< HEAD
-<script src="<?php echo $URL; ?>/dist/js/main.min.js"></script>
 
-=======
-<script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script>
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5
+<!-- <script src="<?php echo $URL; ?>dist/js/main.min.js" defer></script> -->
 <script>
   $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
     type: "line",

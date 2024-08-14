@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__) . '/config.php';
 
-<<<<<<< HEAD
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_categoria = $_POST['id_categoria_act'];
     $cod_categoria = $_POST['cod_categoria_act'];
@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare('UPDATE categorias SET cod_categoria = ?, nombre_categoria = ?, descripcion_categoria = ? WHERE id_categoria = ?');
     $stmt->execute([$cod_categoria, $nombre_categoria, $descripcion_categoria, $id_categoria]);
 
-    header('Location: ../../index.php');
+    header('Location: ../../../pages/categorias/index.php');
 }
-?>
-=======
+
+/*
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['id_categoria']) && isset($_POST['nombre_categoria']) && isset($_POST['descripcion_categoria'])) {
         $id_categoria = $_POST['id_categoria'];
@@ -45,8 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "Método de solicitud no permitido.";
 }
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    echo "Método de solicitud no permitido.";
-    var_dump($_SERVER);
-}
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5
+
+
+*/

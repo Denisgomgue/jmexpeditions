@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__) . '/config.php';
 
-<<<<<<< HEAD
+
 if (isset($_GET['id'])) {
     $id_categoria = $_GET['id'];
 
@@ -12,8 +12,8 @@ if (isset($_GET['id'])) {
         echo "Error al eliminar la categoría";
     }
 }
-?>
-=======
+/*
+
 if (isset($_GET['id_categoria'])) {
     $id_categoria = $_GET['id_categoria'];
 
@@ -33,6 +33,6 @@ if (isset($_GET['id_categoria'])) {
     }
 } else {
     echo "ID de categoría no proporcionado.";
-}
+}*/
 
->>>>>>> 75bde39f1873fb24bd8c9fab7abd5c405b7c0ee5
+

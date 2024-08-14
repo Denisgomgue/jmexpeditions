@@ -2,14 +2,26 @@
 include '../../app/controller/config.php';
 include '../layouts/header.php';
 include '../../app/controller/categorias/listar-categoria.php';
-include '../../app/controller/destinos/create.php';
 
+// Consulta para obtener los departamentos
+$sql_departamentos = "SELECT id_departamento, nombre_departamento FROM departamentos";
+$query_departamentos = $pdo->prepare($sql_departamentos);
+$query_departamentos->execute();
+$departamentos_datos = $query_departamentos->fetchAll(PDO::FETCH_ASSOC);
+
+// Consulta para obtener las provincias (se llenará dinámicamente en base al departamento seleccionado)
+$sql_provincias = "SELECT id_provincia, nombre_provincia FROM provincias";
+$query_provincias = $pdo->prepare($sql_provincias);
+$query_provincias->execute();
+$provincias_datos = $query_provincias->fetchAll(PDO::FETCH_ASSOC);
+
+include '../../app/controller/destinos/create.php';
 ?>
 
 <div class="container">
   <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">Forms</h3>
+      <h3 class="fw-bold mb-3">Registro de destinos</h3>
       <ul class="breadcrumbs mb-3">
         <li class="nav-home">
           <a href="#">
@@ -32,7 +44,7 @@ include '../../app/controller/destinos/create.php';
     </div>
     <!--Eliminados-->
     <!--CONTENIDO INICIO-->
-    <div class="col  m-0">
+    <div class="col m-0">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
@@ -43,7 +55,6 @@ include '../../app/controller/destinos/create.php';
               <form action="../../app/controller/destinos/create.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
-
                     <div class="form-group">
                       <label for="nombre">Nombre del Destino</label>
                       <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="generarCodigo()" required>
@@ -54,13 +65,31 @@ include '../../app/controller/destinos/create.php';
                     </div>
                     <div class="form-group">
                       <label for="departamento">Departamento</label>
-                      <input type="text" class="form-control" id="departamento" name="departamento" required>
+                      <select class="form-control" id="departamento" name="id_departamento" required onchange="cargarProvincias(this.value)">
+                        <option value="">--- Seleccione un departamento ---</option>
+                        <?php
+                        if (!empty($departamentos_datos)) {
+                          foreach ($departamentos_datos as $departamento) {
+                            echo "<option value='" . $departamento['id_departamento'] . "'>" . htmlspecialchars($departamento['nombre_departamento']) . "</option>";
+                          }
+                        } else {
+                          echo "<option value=''>No hay departamentos disponibles</option>";
+                        }
+                        ?>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="provincia">Provincia</label>
-                      <input type="text" class="form-control" id="provincia" name="provincia" required>
+                      <select class="form-control" id="provincia" name="id_provincia" required>
+                        <option value="">--- Seleccione una provincia ---</option>
+                        <!-- Las provincias se cargarán dinámicamente -->
+                      </select>
                     </div>
-
+                    <div class="form-group">
+                      <label for="parque_reserva">Parque o Reserva</label>
+                      <input type="text" class="form-control" id="parque_reserva" name="parque_reserva" required>
+                    </div>
+                    
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
@@ -68,11 +97,10 @@ include '../../app/controller/destinos/create.php';
                       <input type="text" class="form-control" id="codigo" name="codigo" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="categoria">Categoría</label>
-                      <select class="form-control" id="categoria" onchange="generarCodigo()" name="categoria" required>
-                        <option value=" " readonly>--- Seleccione alguna categoria ---</option>
+                      <label for="id_categoria">Categoría</label>
+                      <select class="form-control" id="id_categoria" onchange="generarCodigo()" name="id_categoria" required>
+                        <option value=" " readonly>--- Seleccione alguna categoría ---</option>
                         <?php
-                        // Iterar a través de las categorías y crear opciones para la lista desplegable
                         if (!empty($categorias_datos)) {
                           foreach ($categorias_datos as $categoria) {
                             echo "<option value='" . $categoria['id_categoria'] . "'>" . htmlspecialchars($categoria['nombre_categoria']) . "</option>";
@@ -88,10 +116,13 @@ include '../../app/controller/destinos/create.php';
                       <input type="number" class="form-control" id="numero_dias" name="numero_dias" required>
                     </div>
                     <div class="form-group">
+                      <label for="altitud_destino">Altitud del Destino (msnm)</label>
+                      <input type="number" class="form-control" id="altitud_destino" name="altitud_destino" required>
+                    </div>
+                    <div class="form-group">
                       <label for="descripcion">Breve Descripción</label>
                       <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                     </div>
-
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
@@ -113,14 +144,12 @@ include '../../app/controller/destinos/create.php';
                     </div>
                   </div>
                   <div class="card-action">
-                    
                     <button type="submit" class="btn btn-success">Registrar</button>
                     <button class="btn btn-danger">Nuevo</button>
                     <button class="btn btn-info">Actualizar</button>
                   </div>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -130,5 +159,26 @@ include '../../app/controller/destinos/create.php';
   </div>
 </div>
 
+<script>
+// Función para cargar las provincias según el departamento seleccionado
+function cargarProvincias(id_departamento) {
+    const provinciaSelect = document.getElementById('provincia');
+    provinciaSelect.innerHTML = '<option value="">--- Seleccione una provincia ---</option>'; // Resetear las opciones
+
+    if (id_departamento) {
+        fetch(`../../app/controller/destinos/listar-provincias.php?id_departamento=${id_departamento}`)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(provincia => {
+                const option = document.createElement('option');
+                option.value = provincia.id_provincia;
+                option.textContent = provincia.nombre_provincia;
+                provinciaSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar provincias:', error));
+    }
+}
+</script>
 
 <?php include '../layouts/footer.php'; ?>
