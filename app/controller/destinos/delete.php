@@ -12,14 +12,14 @@ if (isset($_GET['id'])) {
 
     try {
         // Eliminar el destino de la base de datos
-        $sql = "DELETE FROM destinos WHERE id_destino = :id_destino";
+        $sql = "DELETE FROM categorias WHERE id_categoria = :id_categoria";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':id_destino' => $id_destino]);
+        $stmt->execute([':id_categoria' => $id_categoria]);
 
-        // Redireccionar a la lista de destinos después de eliminar
-        header("Location: ../../../pages/destinos/index.php?message=" . urlencode("El destino ha sido eliminado con éxito"));
-        header("Location: ../../../pages/destinos/");
+        // Redireccionar a la lista de categorías después de eliminar
+        header("Location: ../../../pages/categorias/index.php?message=" . urlencode("La categoría ha sido eliminada con éxito"));
         exit();
+       
     } catch (PDOException $e) {
         echo "Error al eliminar el destino: " . $e->getMessage();
     }

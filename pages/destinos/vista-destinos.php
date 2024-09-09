@@ -12,6 +12,11 @@ $query = "
 ";
 $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStatement
 ?>
+
+<!--Exportar para carousel-->
+<link rel="stylesheet" href="<?php echo $URL; ?>public/css/galerias/index.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 <div class="container">
   <div class="page-inner">
     <div class="card col">
@@ -65,45 +70,61 @@ $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStat
         </div>
       </div>
     </div>
-    <div class="row" id="destinos-list">
+
+    <div class="col" id="destinos-list">
       <?php
       // Iterar a través de los resultados y generar una tarjeta para cada destino
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       ?>
-        <div class="col-md-4">
-          <div class="card card-post card-round">
-            <img class="card-img-top" src="<?php echo $URL; ?>app/controller/public/uploads/<?php echo htmlspecialchars($row['imagen1_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
-            <div class="card-body">
-              <div class="d-flex">
+        <div class="card contenedor-col ">
+          <div class="owl-carousel contenedor-images">
+
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen1_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen2_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen3_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+
+          </div>
+          <div class="contenedor-info p-3">
+            <div class="card-post">
+              <div class="d-flex card-header">
                 <div class="info-post">
                   <div class="card-flex">
                     <h3 class="card-title">
                       <a href="#"> <?php echo htmlspecialchars($row['nombre_destino']); ?> </a>
                     </h3>
-                    <p class="date text-muted"><?php echo htmlspecialchars($row['altitud_destino']); ?> <span>m.s.n.m</span> </p>
+                    <p class="date text-info">
+                      <i class="fas fa-tag"></i> <a href="#"><?php echo htmlspecialchars($row['nombre_categoria']); ?></a> &MediumSpace;
+                      <i class="fas fa-ruler-vertical text-secondary"> <a href="#"><?php echo htmlspecialchars($row['altitud_destino']); ?> <span>m.s.n.m</span></a></i>
+                    </p>
                   </div>
-                  <p class="text-primary mb-0">
+                 
+                  <p class="text-primary">
                     <span class="tag badge badge-secondary"><?php echo htmlspecialchars($row['nombre_departamento']); ?></span>
-                    <span class="text-muted">|</span>
+                    <span class="text-muted"> | </span>
                     <span class="tag badge badge-info"><?php echo htmlspecialchars($row['nombre_provincia']); ?></span>
                   </p>
+
                 </div>
               </div>
-              <div class="separator-solid"></div>
-              <p class="card-category text-info mb-1">
-                <a href="#"><?php echo htmlspecialchars($row['nombre_categoria']); ?></a>
-              </p>
-              <p class="card-text text-muted">
-                <?php echo htmlspecialchars($row['descripcion_destino']); ?>
-              </p>
-              <a href="#" class="btn m-auto btn-primary btn-md">Ver más</a>
+              <div class="card-body">
+
+                <p class="card-text text-muted">
+                  <?php echo htmlspecialchars($row['descripcion_destino']); ?>
+                </p>
+                <a href="#" class="btn m-auto btn-primary btn-md">Ver más</a>
+              </div>
             </div>
           </div>
+
         </div>
+
       <?php
       }
       ?>
     </div>
+
   </div>
 </div>
 
@@ -134,11 +155,26 @@ $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStat
       const categoria = document.getElementById('categoria').value;
       const ubicacion = document.getElementById('ubicacion').value;
 
-      fetch(`../../app/controller/destinos/destinos.php?departamento=${departamento}&provincia=${provincia}&categoria=${categoria}&ubicacion=${ubicacion}`)
+      fetch(`filtro-destinos.php?departamento=${departamento}&provincia=${provincia}&categoria=${categoria}&ubicacion=${ubicacion}`)
         .then(response => response.text())
         .then(data => {
-          document.getElementById('destinos-list').innerHTML = data;
+          const destinosList = document.getElementById('destinos-list');
+          destinosList.innerHTML = data;
+
+          // Re-inicializar el carrusel después de actualizar el contenido
+          $('.owl-carousel').owlCarousel({
+            autoplaySpeed: 100,
+            navSpeed: 800,
+            items: 1,
+            loop: true,
+          });
         });
+    });
+    $('.owl-carousel').owlCarousel({
+      autoplaySpeed: 100,
+      navSpeed: 800,
+      items: 1,
+      loop: true,
     });
   });
 </script>

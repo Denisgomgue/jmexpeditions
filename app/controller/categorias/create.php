@@ -12,18 +12,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $pdo->prepare("INSERT INTO categorias (nombre_categoria, cod_categoria, descripcion_categoria) VALUES (?, ?, ?)");
             if ($stmt->execute([$nombre_categoria, $cod_categoria, $descripcion_categoria])) {
                 // Redirige a la página de éxito o muestra un mensaje
-                header("Location: ../../../pages/categorias/index.php?message=" . urlencode("La categoria se registró con éxito"));
+                
+                // Después de insertar la categoría en la base de datos
+                header("Location: ../../../pages/categorias/index.php?status=success&message=registrado&entity=" . urlencode("Categoría"));
                 exit();
             } else {
-                echo "Error al registrar la categoría";
+                header("Location: ../../../pages/categorias/index.php?status=error&message=insert_error&entity=" . urlencode("Categoría"));
+                exit();
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            header("Location: ../../../pages/categorias/index.php?status=error&message=database_error&entity=" . urlencode("Categoría"));
+            exit();
         }
     } else {
-        echo "Datos del formulario no están establecidos.";
+        header("Location: ../../../pages/categorias/index.php?status=error&message=missing_data&entity=" . urlencode("Categoría"));
+        exit();
     }
-} else {
-    echo "Método de solicitud no permitido.";
-}
-
+} 

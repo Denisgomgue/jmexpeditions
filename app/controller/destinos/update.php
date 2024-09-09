@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $descripcion_destino = $_POST['descripcion_destino'];
     
     // Ruta para almacenar las imágenes
-    $upload_dir = __DIR__ . '/../public/uploads/';
+    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/jmexpeditions/public/uploads/';
+
 
     // Manejar archivos subidos
     $fotos = $_FILES['fotos'];
@@ -69,11 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute($params);
 
         // Redirigir a la lista de destinos o mostrar un mensaje de éxito
-        header("Location: ../../../pages/destinos/index.php?message=" . urlencode("El destino se actualizó con éxito"));
+        header("Location: ../../../pages/destinos/index.php?status=success&message=" . urlencode("actualizado") . "&entity=" . urlencode("destino"));
         exit();
     } catch (PDOException $e) {
         die("Error al actualizar el destino: " . $e->getMessage());
     }
-} else {
-    echo "No se ha enviado ningún formulario.";
 }

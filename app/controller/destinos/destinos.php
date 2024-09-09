@@ -52,7 +52,7 @@ if ($destinos): ?>
     <?php foreach ($destinos as $destino): ?>
         <div class="col-md-4">
           <div class="card card-post card-round">
-            <img class="card-img-top" src="<?php echo $URL; ?>app/controller/public/uploads/<?php echo htmlspecialchars($destino['imagen1_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($destino['nombre_destino']); ?>" />
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($destino['imagen1_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($destino['nombre_destino']); ?>" />
             <div class="card-body">
               <div class="d-flex">
                 <div class="info-post">

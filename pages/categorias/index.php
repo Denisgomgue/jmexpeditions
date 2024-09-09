@@ -29,6 +29,13 @@ if (isset($_GET['id_categoria'])) {
     }
 }
 ?>
+<!-- Incluir jQuery -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+<!-- Incluir SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 <div class="container">
     <div class="page-inner">
@@ -75,8 +82,9 @@ if (isset($_GET['id_categoria'])) {
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <button type="submit" class="btn btn-success">Registrar</button>
-                                    <button type="reset" class="btn btn-danger">Nuevo</button>
+                                    <button type="submit" id="btn_guardar_categoria" class="btn btn-success" data-entity="Categoria">Registrar</button>
+
+                                    <button type="reset" class="btn btn-danger btn-nuevo">Nuevo</button>
                                 </div>
                             </form>
                         </div>
@@ -111,8 +119,9 @@ if (isset($_GET['id_categoria'])) {
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <button type="submit" class="btn btn-info">Actualizar</button>
-                                    <button type="button" class="btn btn-secondary" onclick="ocultarFormularioActualizar()">Cancelar</button>
+                                    <button type="submit" id="btn_actualizar_categoria" class="btn btn-info">Actualizar</button>
+
+                                    <button type="button" class="btn btn-secondary" onclick="cancelarActualizacion('Categoria')" data-entity="Categoria">Cancelar</button>
                                 </div>
                             </form>
                         </div>
@@ -132,7 +141,7 @@ if (isset($_GET['id_categoria'])) {
                         <div class="table-responsive">
                             <table
                                 id="basic-datatables"
-                                class="display table table-striped table-hover">
+                                class="display table table-striped table-hover dataTable">
                                 <thead>
                                     <tr role="row">
                                         <th class="border-top-0">#</th>
@@ -142,15 +151,7 @@ if (isset($_GET['id_categoria'])) {
                                         <th class="border-top-0">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th class="border-top-0">#</th>
-                                        <th class="border-top-0">Código</th>
-                                        <th class="border-top-0">Categoría</th>
-                                        <th class="border-top-0">Descripción</th>
-                                        <th class="border-top-0">Acciones</th>
-                                    </tr>
-                                </tfoot>
+
                                 <tbody>
                                     <?php
                                     $contador = 0;
@@ -174,7 +175,9 @@ if (isset($_GET['id_categoria'])) {
 
                                                         <button type='button' class='btn col btn-success' onclick='mostrarFormularioActualizar("<?php echo $id_categoria; ?>", "<?php echo addslashes($codigo_categoria); ?>", "<?php echo addslashes($nombre_categoria); ?>", "<?php echo addslashes($descripcion_categoria); ?>")'><i class='fa fa-pencil-alt'></i></button>
 
-                                                        <a href='../../app/controller/categorias/delete.php?id=<?php echo $id_categoria; ?>' type='button' class='btn col btn-danger' onclick='return confirm("¿Está seguro que desea eliminar esta categoría?")'><i class='fa fa-trash'></i></a>
+                                                        <a href='../../app/controller/categorias/delete.php?id=<?php echo $id_categoria; ?>' class='btn col btn-danger btn_eliminar' data-entity="Categoria"><i class='fa fa-trash'></i></a>
+
+
                                                     </div>
                                                 </center>
                                             </td>
@@ -189,9 +192,11 @@ if (isset($_GET['id_categoria'])) {
                 </div>
             </div>
         </div>
-        <!--CONTENIDO FIN-->
     </div>
-</div>
-
-<?php include '../layouts/database.php'; ?>
-<?php include '../layouts/footer.php'; ?>
+    
+    <?php 
+    include '../layouts/modal.php'; 
+    include '../layouts/forms.php'; 
+    include '../layouts/database.php';
+    include '../layouts/footer.php'; 
+    ?>

@@ -55,17 +55,20 @@ include '../../app/controller/destinos/create.php';
               <form action="../../app/controller/destinos/create.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group" id="nombreGroup">
                       <label for="nombre">Nombre del Destino</label>
-                      <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="generarCodigo()" required>
+                      <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="verificarNombreDestino()" required>
+                      <small id="nombreError" class="form-text text-muted" style="display: none;">Este nombre de destino ya existe. Por favor, elija otro.</small>
                     </div>
+
+
                     <div class="form-group">
                       <label for="ubicacion">Ubicación</label>
                       <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
                     </div>
                     <div class="form-group">
                       <label for="departamento">Departamento</label>
-                      <select class="form-control" id="departamento" name="id_departamento" required onchange="cargarProvincias(this.value)">
+                      <select class="form-control" id="departamento" name="departamento" required onchange="cargarProvincias(this.value)">
                         <option value="">--- Seleccione un departamento ---</option>
                         <?php
                         if (!empty($departamentos_datos)) {
@@ -80,7 +83,7 @@ include '../../app/controller/destinos/create.php';
                     </div>
                     <div class="form-group">
                       <label for="provincia">Provincia</label>
-                      <select class="form-control" id="provincia" name="id_provincia" required>
+                      <select class="form-control" id="provincia" name="provincia" required>
                         <option value="">--- Seleccione una provincia ---</option>
                         <!-- Las provincias se cargarán dinámicamente -->
                       </select>
@@ -89,7 +92,7 @@ include '../../app/controller/destinos/create.php';
                       <label for="parque_reserva">Parque o Reserva</label>
                       <input type="text" class="form-control" id="parque_reserva" name="parque_reserva" required>
                     </div>
-                    
+
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
@@ -111,10 +114,10 @@ include '../../app/controller/destinos/create.php';
                         ?>
                       </select>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="numero_dias">Número de Días de Tour</label>
                       <input type="number" class="form-control" id="numero_dias" name="numero_dias" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label for="altitud_destino">Altitud del Destino (msnm)</label>
                       <input type="number" class="form-control" id="altitud_destino" name="altitud_destino" required>
@@ -126,7 +129,7 @@ include '../../app/controller/destinos/create.php';
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="fotos">Fotos</label>
+                      <label >Fotos</label>
                       <div class="image-upload">
                         <label for="foto1" class="upload-box">
                           <i class="fas fa-upload"></i>
@@ -144,9 +147,9 @@ include '../../app/controller/destinos/create.php';
                     </div>
                   </div>
                   <div class="card-action">
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                    <button class="btn btn-danger">Nuevo</button>
-                    <button class="btn btn-info">Actualizar</button>
+                    <button type="submit" class="btn btn-success" data-entity="Destino">Registrar</button>
+                    <button class="btn btn-danger btn-nuevo">Nuevo</button>
+                    
                   </div>
                 </div>
               </form>
@@ -160,25 +163,54 @@ include '../../app/controller/destinos/create.php';
 </div>
 
 <script>
-// Función para cargar las provincias según el departamento seleccionado
-function cargarProvincias(id_departamento) {
+  // Función para cargar las provincias según el departamento seleccionado
+  function cargarProvincias(id_departamento) {
     const provinciaSelect = document.getElementById('provincia');
     provinciaSelect.innerHTML = '<option value="">--- Seleccione una provincia ---</option>'; // Resetear las opciones
 
     if (id_departamento) {
-        fetch(`../../app/controller/destinos/listar-provincias.php?id_departamento=${id_departamento}`)
+      fetch(`../../app/controller/destinos/listar-provincias.php?id_departamento=${id_departamento}`)
         .then(response => response.json())
         .then(data => {
-            data.forEach(provincia => {
-                const option = document.createElement('option');
-                option.value = provincia.id_provincia;
-                option.textContent = provincia.nombre_provincia;
-                provinciaSelect.appendChild(option);
-            });
+          data.forEach(provincia => {
+            const option = document.createElement('option');
+            option.value = provincia.id_provincia;
+            option.textContent = provincia.nombre_provincia;
+            provinciaSelect.appendChild(option);
+          });
         })
         .catch(error => console.error('Error al cargar provincias:', error));
     }
-}
+  }
+
+  //verificar la existencia del destino mediante nombres
+  function verificarNombreDestino() {
+    const nombreDestino = document.getElementById('nombre').value;
+    const nombreGroup = document.getElementById('nombreGroup');
+    const nombreError = document.getElementById('nombreError');
+
+    if (nombreDestino.length > 0) {
+      fetch(`../../app/controller/destinos/create.php?nombre=${encodeURIComponent(nombreDestino)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.existe) {
+            nombreGroup.classList.add('has-error', 'has-feedback');
+            nombreError.style.display = 'block';
+          } else {
+            nombreGroup.classList.remove('has-error', 'has-feedback');
+            nombreError.style.display = 'none';
+          }
+        })
+        .catch(error => console.error('Error al verificar el nombre del destino:', error));
+    } else {
+      nombreGroup.classList.remove('has-error', 'has-feedback');
+      nombreError.style.display = 'none';
+    }
+  }
 </script>
 
-<?php include '../layouts/footer.php'; ?>
+<?php 
+include '../layouts/modal.php'; 
+include '../layouts/forms.php'; 
+include '../layouts/footer.php'; 
+?>
