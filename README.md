@@ -1,5 +1,5 @@
 # Kaiadmin Lite - Free Bootstrap 5 Admin Dashboard
-![kaiadminlitethumb (1)](https://github.com/Hizrian/kaiadmin-lite/assets/10692084/4793c6b9-7991-4502-8633-14d9ed0ea486)
+![kaiadminlitethumb (1)](https://github.com/Denisgomgue/jmexpeditions/pages/destinos/index.php)
 
 This time, I want to introduce you Kaiadmin Lite – a free Bootstrap 5 Admin Dashboard built to easily manage and visualize business data.
 
