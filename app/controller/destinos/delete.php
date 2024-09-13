@@ -1,28 +1,48 @@
 <?php
-require_once dirname(__DIR__) . '/config.php'; // Asegúrate de que la ruta a config.php es correcta
+require_once dirname(__DIR__) . '/config.php';
 
-// Verifica si $pdo está definido
-if (!isset($pdo)) {
-    die("No se pudo conectar a la base de datos.");
-}
-
-// Verificar si se recibió el ID del destino a eliminar
-if (isset($_GET['id'])) {
-    $id_destino = $_GET['id'];
+if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
+    $id_destino = $_GET['id'];  // Validar que el id sea un número entero
 
     try {
-        // Eliminar el destino de la base de datos
-        $sql = "DELETE FROM destinos WHERE id_destino = :id_destino";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':id_destino' => $id_destino]);
+        // Comprobar si el registro existe antes de intentar eliminarlo
+        $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM destinos WHERE id_destino = ?");
+        $checkStmt->execute([$id_destino]);
+        if ($checkStmt->fetchColumn() == 0) {
+            // Redirigir si no se encuentra el registro
+            header("Location: ../../../pages/destinos/index.php?status=error&message=registro_no_encontrado&entity=Destino");
+            exit();
+        }
 
-        // Redireccionar a la lista de destinos después de eliminar
-        header("Location: ../../../pages/destinos/index.php?message=" . urlencode("El destino ha sido eliminado con éxito"));
-        header("Location: ../../../pages/destinos/");
-        exit();
+        // Iniciar la transacción
+        $pdo->beginTransaction();
+
+        // Eliminar el destino
+        $stmt = $pdo->prepare("DELETE FROM destinos WHERE id_destino = ?");
+        if ($stmt->execute([$id_destino])) {
+            // Confirmar la transacción
+            $pdo->commit();
+            // Redirigir con un mensaje de éxito
+            header("Location: ../../../pages/destinos/index.php?status=success&message=eliminado&entity=Destino");
+            exit();
+        } else {
+            // Revertir la transacción en caso de fallo
+            $pdo->rollBack();
+            // Redirigir con un mensaje de error
+            header("Location: ../../../pages/destinos/index.php?status=error&message=error_eliminando&entity=Destino");
+            exit();
+        }
     } catch (PDOException $e) {
-        echo "Error al eliminar el destino: " . $e->getMessage();
+        // Revertir la transacción si hay una excepción
+        $pdo->rollBack();
+        // Registrar el error en el log del servidor
+        error_log("Error eliminando destino: " . $e->getMessage());
+        // Redirigir con un mensaje de error
+        header("Location: ../../../pages/destinos/index.php?status=error&message=" . urlencode($e->getMessage()) . "&entity=Destino");
+        exit();
     }
 } else {
-    echo "ID del destino no especificado.";
+    // Redirigir con mensaje de error si el id no es válido
+    header("Location: ../../../pages/destinos/index.php?status=error&message=invalid_id&entity=Destino");
+    exit();
 }

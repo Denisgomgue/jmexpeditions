@@ -1,4 +1,3 @@
-
 <footer class="footer">
   <div class="container-fluid d-flex justify-content-between">
     <nav class="pull-left">
@@ -85,15 +84,15 @@
       </div>
     </div>
   </div>
-  <div class="custom-toggle">
+  <!-- <div class="custom-toggle">
     <i class="icon-settings"></i>
-  </div>
+  </div> -->
 </div>
 <!-- End Custom template -->
 </div>
 <!--   Core JS Files   -->
 <!-- jQuery -->
-<script src="<?php echo $URL; ?>assets/js/core/jquery-3.7.1.min.js"></script>
+
 <!-- Popper.js -->
 <script src="<?php echo $URL; ?>assets/js/core/popper.min.js"></script>
 <!-- Bootstrap -->
@@ -149,6 +148,37 @@
     lineWidth: "2",
     lineColor: "#ffa534",
     fillColor: "rgba(255, 165, 52, .14)",
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $('.image-popup').magnificPopup({
+      type: 'image',
+      gallery: {
+        enabled: true, // Habilita la galería para mostrar las flechas
+        navigateByImgClick: true, // Permite navegar haciendo clic en la imagen
+        preload: [0, 1] // Preload anterior y siguiente imagenes
+      },
+      zoom: {
+        enabled: true, // Habilita el zoom
+        duration: 300, // Duración de la animación de zoom
+        opener: function(element) {
+          return element.find('img');
+        }
+      },
+      image: {
+        titleSrc: function(item) {
+          return item.el.attr('title'); // Si deseas agregar títulos, se pueden agregar aquí
+        }
+      },
+      mainClass: 'mfp-fade', // Efecto de fade al abrir
+      removalDelay: 300, // Delay antes de cerrar el popup para efectos
+      closeOnContentClick: true, // Cierra el popup haciendo clic fuera del contenido
+      closeBtnInside: true, // Muestra el botón de cerrar dentro del popup
+      closeOnBgClick: true, // Permite cerrar el popup al hacer clic en el fondo
+      fixedContentPos: true, // Evita que el contenido se mueva al abrir el popup
+      fixedBgPos: true // Evita que el fondo se mueva
+    });
   });
 </script>
 </body>

@@ -11,7 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare('UPDATE categorias SET cod_categoria = ?, nombre_categoria = ?, descripcion_categoria = ? WHERE id_categoria = ?');
     $stmt->execute([$cod_categoria, $nombre_categoria, $descripcion_categoria, $id_categoria]);
 
-    header('Location: ../../../pages/categorias/index.php');
+    // update.php
+    // Después de actualizar la categoría en la base de datos
+    header("Location: ../../../pages/categorias/index.php?status=success&message=actualizado&entity=" . urlencode("categoría"));
+    exit();
 }
 
 /*

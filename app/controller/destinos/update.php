@@ -1,75 +1,78 @@
 <?php
 require_once dirname(__DIR__) . '/config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recibir datos del formulario
     $id_destino = $_POST['id_destino'];
-    $nombre = $_POST['nombre_destino'];
-    $ubicacion = $_POST['ubicacion_destino'];
-    $region = $_POST['region_destino'];
-    $provincia = $_POST['provincia_destino'];
-    $parque_reserva = $_POST['parque_reserva_destino'];
-    $codigo = $_POST['codigo_destino'];
-    $categoria = $_POST['id_categoria'];
-    $numero_dias = $_POST['dias_destino'];
-    $descripcion = $_POST['descripcion_destino'];
-
+    $nombre_destino = $_POST['nombre_destino'];
+    $ubicacion_destino = $_POST['ubicacion_destino'];
+    $id_departamento = $_POST['id_departamento']; // Cambiado
+    $id_provincia = $_POST['id_provincia']; // Cambiado
+    $parque_reserva_destino = $_POST['parque_reserva_destino'];
+    $id_categoria = $_POST['id_categoria'];
+    $dias_destino = $_POST['dias_destino'];
+    $descripcion_destino = $_POST['descripcion_destino'];
+    
     // Ruta para almacenar las imágenes
-    $upload_dir = __DIR__ . '/../public/uploads/';
+    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/jmexpeditions/public/uploads/';
+
 
     // Manejar archivos subidos
-    $foto1_name = !empty($_FILES['fotos']['name'][0]) ? $_FILES['fotos']['name'][0] : null;
-    $foto2_name = !empty($_FILES['fotos']['name'][1]) ? $_FILES['fotos']['name'][1] : null;
-    $foto3_name = !empty($_FILES['fotos']['name'][2]) ? $_FILES['fotos']['name'][2] : null;
+    $fotos = $_FILES['fotos'];
+    $imageFields = ['imagen1_destino', 'imagen2_destino', 'imagen3_destino'];
+    $params = [];
+    
+    foreach ($imageFields as $index => $field) {
+        if (!empty($fotos['name'][$index])) {
+            $fileName = basename($fotos['name'][$index]);
+            $fileTmp = $fotos['tmp_name'][$index];
+            $fileDest = $upload_dir . $fileName;
 
-    // Rutas temporales
-    $foto1_tmp = !empty($_FILES['fotos']['tmp_name'][0]) ? $_FILES['fotos']['tmp_name'][0] : null;
-    $foto2_tmp = !empty($_FILES['fotos']['tmp_name'][1]) ? $_FILES['fotos']['tmp_name'][1] : null;
-    $foto3_tmp = !empty($_FILES['fotos']['tmp_name'][2]) ? $_FILES['fotos']['tmp_name'][2] : null;
-
-    // Definir destinos
-    $foto1_dest = $upload_dir . basename($foto1_name);
-    $foto2_dest = $upload_dir . basename($foto2_name);
-    $foto3_dest = $upload_dir . basename($foto3_name);
-
-    // Mover archivos si están presentes
-    if ($foto1_tmp) move_uploaded_file($foto1_tmp, $foto1_dest);
-    if ($foto2_tmp) move_uploaded_file($foto2_tmp, $foto2_dest);
-    if ($foto3_tmp) move_uploaded_file($foto3_tmp, $foto3_dest);
+            // Mover archivo
+            if (move_uploaded_file($fileTmp, $fileDest)) {
+                $params[":$field"] = $fileName;
+            } else {
+                die("Error al subir la imagen: $fileName");
+            }
+        }
+    }
 
     // Preparar la actualización
-    $sql = "UPDATE destinos SET nombre_destino = :nombre, ubicacion_destino = :ubicacion, region_destino = :region, 
-            provincia_destino = :provincia, parque_reserva_destino = :parque_reserva, 
-            codigo_destino = :codigo, id_categoria = :categoria, dias_destino = :numero_dias, 
-            descripcion_destino = :descripcion" . 
-            ($foto1_name ? ", imagen1_destino = :imagen1" : "") . 
-            ($foto2_name ? ", imagen2_destino = :imagen2" : "") . 
-            ($foto3_name ? ", imagen3_destino = :imagen3" : "") . 
-            " WHERE id_destino = :id_destino";
+    $sql = "UPDATE destinos SET 
+        nombre_destino = :nombre_destino,
+        ubicacion_destino = :ubicacion_destino,
+        id_departamento = :id_departamento,
+        id_provincia = :id_provincia,
+        parque_reserva_destino = :parque_reserva_destino,
+        id_categoria = :id_categoria,
+        dias_destino = :dias_destino,
+        descripcion_destino = :descripcion_destino" . 
+        (isset($params[':imagen1_destino']) ? ", imagen1_destino = :imagen1_destino" : "") . 
+        (isset($params[':imagen2_destino']) ? ", imagen2_destino = :imagen2_destino" : "") . 
+        (isset($params[':imagen3_destino']) ? ", imagen3_destino = :imagen3_destino" : "") . 
+        " WHERE id_destino = :id_destino";
 
-    $stmt = $pdo->prepare($sql);
-
-    $params = [
-        ':nombre' => $nombre,
-        ':ubicacion' => $ubicacion,
-        ':region' => $region,
-        ':provincia' => $provincia,
-        ':parque_reserva' => $parque_reserva,
-        ':codigo' => $codigo,
-        ':categoria' => $categoria,
-        ':numero_dias' => $numero_dias,
-        ':descripcion' => $descripcion,
+    // Preparar parámetros
+    $params = array_merge($params, [
+        ':nombre_destino' => $nombre_destino,
+        ':ubicacion_destino' => $ubicacion_destino,
+        ':id_departamento' => $id_departamento,
+        ':id_provincia' => $id_provincia,
+        ':parque_reserva_destino' => $parque_reserva_destino,
+        ':id_categoria' => $id_categoria,
+        ':dias_destino' => $dias_destino,
+        ':descripcion_destino' => $descripcion_destino,
         ':id_destino' => $id_destino
-    ];
+    ]);
 
-    if ($foto1_name) $params[':imagen1'] = $foto1_name;
-    if ($foto2_name) $params[':imagen2'] = $foto2_name;
-    if ($foto3_name) $params[':imagen3'] = $foto3_name;
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
 
-    $stmt->execute($params);
-
-    header("Location: ../../../pages/destinos/index.php?message=" . urlencode("El destino se actualizó con éxito"));
-    exit();
-} else {
-    echo "No se ha enviado ningún formulario.";
+        // Redirigir a la lista de destinos o mostrar un mensaje de éxito
+        header("Location: ../../../pages/destinos/index.php?status=success&message=" . urlencode("actualizado") . "&entity=" . urlencode("destino"));
+        exit();
+    } catch (PDOException $e) {
+        die("Error al actualizar el destino: " . $e->getMessage());
+    }
 }

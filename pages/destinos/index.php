@@ -1,8 +1,7 @@
 <?php
 include '../../app/controller/config.php';
+include '../../app/controller/destinos/listar-destino.php'; // Asegúrate de que el nombre del archivo sea correcto
 include '../layouts/header.php';
-include '../../app/controller/destinos/listar-destino.php';
-include '../../app/controller/destinos/update.php';
 ?>
 
 <div class="container">
@@ -31,8 +30,7 @@ include '../../app/controller/destinos/update.php';
         </div>
 
         <!-- Mostrar notificación si se pasa el parámetro message -->
-        <?php if (isset($_GET['message'])) : ?>
-
+        <!-- <?php if (isset($_GET['message'])) : ?>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     // Mostrar la notificación
@@ -49,20 +47,14 @@ include '../../app/controller/destinos/update.php';
                         time: 5000
                     });
 
-                    console.log("URL original: ", window.location.href);
-
+                    // Eliminar el parámetro de la URL después de mostrar la notificación
                     var url = new URL(window.location.href);
                     url.searchParams.delete('message');
                     window.history.replaceState({}, document.title, url.toString());
-
-                    console.log("URL actualizada: ", url.toString());
-                    //Mostrar en consola el message
-                    console.log("Mensaje: ", decodeURIComponent("<?php echo $_GET['message']; ?>"));
                 });
             </script>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
-        <!-- Listado de Destinos -->
         <!-- Listado de Destinos -->
         <div class="col m-0">
             <div class="col-md-12">
@@ -71,18 +63,21 @@ include '../../app/controller/destinos/update.php';
                         <div class="card-title">Listado de destinos</div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <table class="table text-wrap">
+
+                        <div class="table-responsive">
+                            <table id="basic-datatables" 
+                            class="display table table-striped table-hover" 
+                            cellspacing="0" width="100%">
                                 <thead>
-                                    <tr>
-                                        <th class="border-top-0" aria-controls="multi-filter-select">#</th>
-                                        <th class="border-top-0">Código</th>
-                                        <th class="border-top-0">Destino</th>
-                                        <th class="border-top-0">Ubicación</th>
-                                        <th class="border-top-0">días</th>
-                                        <th class="border-top-0">Categoría</th>
-                                        <th class="border-top-0">Acciones</th>
-                                    </tr>
+                                <tr role="row">
+                                    <th class="border-top-0">#</th>
+                                    <th class="border-top-0">Código</th>
+                                    <th class="border-top-0">Destino</th>
+                                    <th class="border-top-0">Ubicación</th>
+                                    
+                                    <th class="border-top-0">Categoría</th>
+                                    <th class="border-top-0">Acciones</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <?php
@@ -92,9 +87,9 @@ include '../../app/controller/destinos/update.php';
                                         $codigo_destino = htmlspecialchars($destinos_dato['codigo_destino']);
                                         $nombre_destino = htmlspecialchars($destinos_dato['nombre_destino']);
                                         $ubicacion_destino = htmlspecialchars($destinos_dato['ubicacion_destino']);
-                                        $region_destino = htmlspecialchars($destinos_dato['region_destino']);
-                                        $provincia_destino = htmlspecialchars($destinos_dato['provincia_destino']);
-                                        $dias_destino = htmlspecialchars($destinos_dato['dias_destino']);
+                                        $nombre_departamento = htmlspecialchars($destinos_dato['nombre_departamento']);
+                                        $nombre_provincia = htmlspecialchars($destinos_dato['nombre_provincia']);
+                                      
                                         $nombre_categoria = htmlspecialchars($destinos_dato['nombre_categoria']);
                                         $parque_reserva_destino = htmlspecialchars($destinos_dato['parque_reserva_destino']);
                                     ?>
@@ -107,22 +102,20 @@ include '../../app/controller/destinos/update.php';
                                             <td>
                                                 <?php echo $ubicacion_destino; ?>
                                                 <br>
-                                                <span><!-- Nueva columna para parque_reserva_destino -->
-                                                <?php echo $parque_reserva_destino; ?></span><br>
-                                                <span class="text-muted"><?php echo $region_destino; ?></span>,
-                                                <code><?php echo $provincia_destino; ?></code>
+                                                <span><?php echo $parque_reserva_destino; ?></span><br>
+                                                <span class="text-muted"><?php echo $nombre_departamento; ?></span>,
+                                                <code><?php echo $nombre_provincia; ?></code>
                                             </td>
-                                            <td>
-                                                <center><?php echo $dias_destino; ?></center>
-                                            </td>
+                                            
                                             <td><?php echo $nombre_categoria; ?></td>
-
                                             <td>
                                                 <center>
-                                                    <div class="col-sm-3 col-sm-12 d-flex flex-wrap gap-1">
-                                                        <a href="show.php?id=<?php echo $id_destino; ?>" type="button" class="btn col-3 text-center btn-info"><i class="fa fa-eye"></i></a>
-                                                        <a href="editar-destinos.php?id=<?php echo $id_destino; ?>" type="button" class="btn col-3 text-center btn-success"><i class="fa fa-pencil-alt"></i></a>
-                                                        <a href="<?php echo $URL; ?>app/controller/destinos/delete.php?id=<?php echo $id_destino; ?>" type="button" class="btn col-3 text-center btn-danger" onclick="return confirm('¿Está seguro que desea eliminar este destino?')"><i class="fa fa-trash"></i></a>
+                                                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                                        <a href="ver-destinos.php?id=<?php echo $id_destino; ?>" type="button" class="btn col text-center btn-info"><i class="fa fa-eye"></i></a>
+
+                                                        <a href="editar-destinos.php?id=<?php echo $id_destino; ?>" type="button" class="btn col text-center btn-success"><i class="fa fa-pencil-alt"></i></a>
+
+                                                        <a href="<?php echo $URL; ?>app/controller/destinos/delete.php?id=<?php echo $id_destino; ?>" type="button" class="btn col text-center btn-danger btn_eliminar" data-entity="destino" ><i class="fa fa-trash"></i></a> 
                                                     </div>
                                                 </center>
                                             </td>
@@ -131,16 +124,20 @@ include '../../app/controller/destinos/update.php';
                                     }
                                     ?>
                                 </tbody>
-
                             </table>
+
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
 </div>
 
-<?php include '../layouts/footer.php'; ?>
-<!--  -->
+<?php 
+include '../layouts/modal.php'; 
+include '../layouts/database.php'; 
+include '../layouts/footer.php'; 
+?>

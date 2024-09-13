@@ -12,7 +12,7 @@ $id_categoria = '';
 $descripcion_categoria = '';
 
 // Verifica si se ha proporcionado un ID en la cadena de consulta
-if (isset($_GET['id_categoria'])) {
+if (isset($_GET['id_categoria'])) { 
     $id_categoria = $_GET['id_categoria'];
 
     // Obtén los datos actuales de la categoría
@@ -29,6 +29,13 @@ if (isset($_GET['id_categoria'])) {
     }
 }
 ?>
+<!-- Incluir jQuery -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+<!-- Incluir SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 <div class="container">
     <div class="page-inner">
@@ -75,8 +82,9 @@ if (isset($_GET['id_categoria'])) {
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <button type="submit" class="btn btn-success">Registrar</button>
-                                    <button type="reset" class="btn btn-danger">Nuevo</button>
+                                    <button type="submit" id="btn_guardar_categoria" class="btn btn-success" data-entity="Categoria">Registrar</button>
+
+                                    <button type="reset" class="btn btn-danger btn-nuevo">Nuevo</button>
                                 </div>
                             </form>
                         </div>
@@ -111,8 +119,9 @@ if (isset($_GET['id_categoria'])) {
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <button type="submit" class="btn btn-info">Actualizar</button>
-                                    <button type="button" class="btn btn-secondary" onclick="ocultarFormularioActualizar()">Cancelar</button>
+                                    <button type="submit" id="btn_actualizar_categoria" class="btn btn-info">Actualizar</button>
+
+                                    <button type="button" class="btn btn-secondary" onclick="cancelarActualizacion('Categoria')" data-entity="Categoria">Cancelar</button>
                                 </div>
                             </form>
                         </div>
@@ -130,7 +139,9 @@ if (isset($_GET['id_categoria'])) {
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="basic-datatables" class="display table table-striped table-hover dataTable" cellspacing="0" width="100%">
+                            <table
+                                id="basic-datatables"
+                                class="display table table-striped table-hover dataTable">
                                 <thead>
                                     <tr role="row">
                                         <th class="border-top-0">#</th>
@@ -140,15 +151,7 @@ if (isset($_GET['id_categoria'])) {
                                         <th class="border-top-0">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th class="border-top-0">#</th>
-                                        <th class="border-top-0">Código</th>
-                                        <th class="border-top-0">Categoría</th>
-                                        <th class="border-top-0">Descripción</th>
-                                        <th class="border-top-0">Acciones</th>
-                                    </tr>
-                                </tfoot>
+
                                 <tbody>
                                     <?php
                                     $contador = 0;
@@ -168,11 +171,13 @@ if (isset($_GET['id_categoria'])) {
                                             <td>
                                                 <center>
                                                     <div class='col-sm-3 col-sm-12 d-flex flex-wrap gap-1'>
-                                                        <a href='show.php?id=<?php echo $id_categoria; ?>' type='button' class='btn col-3 text-center btn-info'><i class='fa fa-eye'></i></a>
-                                                        
-                                                        <button type='button' class='btn col-3 text-center btn-success' onclick='mostrarFormularioActualizar("<?php echo $id_categoria; ?>", "<?php echo addslashes($codigo_categoria); ?>", "<?php echo addslashes($nombre_categoria); ?>", "<?php echo addslashes($descripcion_categoria); ?>")'><i class='fa fa-pencil-alt'></i></button>
+                                                        <a href='show.php?id=<?php echo $id_categoria; ?>' type='button' class='btn col btn-info'><i class='fa fa-eye'></i></a>
 
-                                                        <a href='../../app/controller/categorias/delete.php?id=<?php echo $id_categoria; ?>' type='button' class='btn col-3 text-center btn-danger' onclick='return confirm("¿Está seguro que desea eliminar esta categoría?")'><i class='fa fa-trash'></i></a>
+                                                        <button type='button' class='btn col btn-success' onclick='mostrarFormularioActualizar("<?php echo $id_categoria; ?>", "<?php echo addslashes($codigo_categoria); ?>", "<?php echo addslashes($nombre_categoria); ?>", "<?php echo addslashes($descripcion_categoria); ?>")'><i class='fa fa-pencil-alt'></i></button>
+
+                                                        <a href='../../app/controller/categorias/delete.php?id=<?php echo $id_categoria; ?>' class='btn col btn-danger btn_eliminar' data-entity="Categoria"><i class='fa fa-trash'></i></a>
+
+
                                                     </div>
                                                 </center>
                                             </td>
@@ -187,8 +192,11 @@ if (isset($_GET['id_categoria'])) {
                 </div>
             </div>
         </div>
-        <!--CONTENIDO FIN-->
     </div>
-</div>
-
-<?php include '../layouts/footer.php'; ?>
+    
+    <?php 
+    include '../layouts/modal.php'; 
+    include '../layouts/forms.php'; 
+    include '../layouts/database.php';
+    include '../layouts/footer.php'; 
+    ?>

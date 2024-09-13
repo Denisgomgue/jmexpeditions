@@ -1,17 +1,28 @@
 <?php
 require_once dirname(__DIR__) . '/config.php';
 
-
 if (isset($_GET['id'])) {
     $id_categoria = $_GET['id'];
 
-    $stmt = $pdo->prepare("DELETE FROM categorias WHERE id_categoria = ?");
-    if ($stmt->execute([$id_categoria])) {
-        echo "Categoría eliminada exitosamente";
-    } else {
-        echo "Error al eliminar la categoría";
+    try {
+        $stmt = $pdo->prepare("DELETE FROM categorias WHERE id_categoria = ?");
+        if ($stmt->execute([$id_categoria])) {
+            // Redirigir al listado con un mensaje de éxito
+            header("Location: ../../../pages/categorias/index.php?status=success&message=eliminado&entity=Categoría");
+            exit();
+        } else {
+            // Redirigir con un mensaje de error
+            header("Location: ../../../pages/categorias/index.php?status=error&message=error_eliminando&entity=Categoría");
+            exit();
+        }
+    } catch (PDOException $e) {
+        // Redirigir con un mensaje de error en caso de excepción
+        header("Location: ../../../pages/categorias/index.php?status=error&message=" . urlencode($e->getMessage()) . "&entity=Categoría");
+        exit();
     }
 }
+
+
 /*
 
 if (isset($_GET['id_categoria'])) {
