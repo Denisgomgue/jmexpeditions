@@ -61,8 +61,8 @@ $stmt = $pdo->query($query); // Ejecuta la consulta
                         <div class="title"><?php echo htmlspecialchars($row['nombre_destino']); ?></div>
 
                         <div class="ubicacion">
-                            <?php echo htmlspecialchars($row['nombre_provincia']); ?>,
-                            <pre><?php echo htmlspecialchars($row['nombre_departamento']); ?></pre>
+                            <?php echo htmlspecialchars($row['nombre_provincia']); ?>, 
+                            <?php echo htmlspecialchars($row['nombre_departamento']); ?>
                         </div>
 
                         <!-- <div class="des"><?php echo htmlspecialchars($row['descripcion_destino']); ?></div> -->

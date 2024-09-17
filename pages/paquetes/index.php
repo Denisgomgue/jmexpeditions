@@ -103,7 +103,7 @@ include '../layouts/header.php';
 
                                                         <a href="editar-paquete.php?id=<?php echo $id_paquete; ?>" type="button" class="btn col text-center btn-success"><i class="fa fa-pencil-alt"></i></a>
 
-                                                        <a href="<?php echo $URL; ?>app/controller/paquetes/delete.php?id=<?php echo $id_paquete; ?>" type="button" class="btn col text-center btn-danger" onclick="return confirm('¿Está seguro de eliminar este paquete?');"><i class="fa fa-trash"></i></a>
+                                                        <a href="<?php echo $URL; ?>app/controller/paquetes/delete.php?id=<?php echo $id_paquete; ?>" type="button" class="btn col text-center btn-danger" data-entity="paquete" ><i class="fa fa-trash"></i></a>
                                                     </div>
                                                 </center>
                                             </td>
