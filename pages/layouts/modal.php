@@ -7,6 +7,8 @@
         const href = $(this).attr("href");
         const entity = $(this).data("entity");
 
+        
+
         Swal.fire({
             title: `¿Estás seguro de eliminar ${entity}?`,
             text: "¡No podrás revertir esto!",

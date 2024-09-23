@@ -171,6 +171,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                     <div class="card-action">
                                         <button type="submit" class="btn btn-success" data-entity="destino">Actualizar</button>
+                                        
                                         <button type="button" class="btn btn-secondary" onclick="cancelarActualizar('Destino')" data-entity="Destino">Cancelar</button>
                                     </div>
                                 </div>

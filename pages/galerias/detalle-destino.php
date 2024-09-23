@@ -1,6 +1,5 @@
 <?php
 require_once '../../app/controller/config.php';
-require_once '../../app/controller/imagenes/delete.php';
 include '../layouts/header.php';
 
 // Obtener el nombre del destino desde la URL
@@ -16,7 +15,7 @@ if ($destino) {
     $id_destino = $destino['id_destino'];
 
     // Consultar todas las imágenes del destino
-    $sql_imagenes = "SELECT url_imagen FROM imagenes_destinos WHERE id_destino = :id_destino";
+    $sql_imagenes = "SELECT id_imagen, url_imagen FROM imagenes_destinos WHERE id_destino = :id_destino";
     $stmt_imagenes = $pdo->prepare($sql_imagenes);
     $stmt_imagenes->execute([':id_destino' => $id_destino]);
     $imagenes = $stmt_imagenes->fetchAll();
@@ -25,7 +24,7 @@ if ($destino) {
 }
 ?>
 
-<link rel="stylesheet" href="<?php echo $URL; ?>public/css/galerias/crudImage.min.css" />
+<link rel="stylesheet" href="<?php echo htmlspecialchars($URL); ?>public/css/galerias/crudImage.min.css" />
 
 <div class="container">
     <div class="page-inner">
@@ -49,20 +48,23 @@ if ($destino) {
                                             </div>
                                         </a>
                                         <div class="image-actions">
-                                            <button class="btn btn-edit btn-success" title="Editar">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                            <!-- Botón de eliminar con llamada AJAX -->
-                                            <button class="btn btn-delete btn-danger" title="Eliminar" >
-                                                <i class="fas fa-trash-alt"></i> 
-                                            </button>
+                                            <!-- Botón de Editar -->                
+                                                <a href="editar-imagen.php?id_imagen=<?php echo htmlspecialchars($imagen['id_imagen']); ?>"
+                                                    class="btn text-center btn-info">
+                                                    <i class="fas fa-ellipsis-h"></i>
+                                                </a>
+                                            
+
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No hay imágenes disponibles para este destino.</p>
+                        <div class="alert alert-warning text-center" role="alert">
+                            No hay imágenes disponibles para este destino.
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -70,31 +72,8 @@ if ($destino) {
     </div>
 </div>
 
-<script>
-    function eliminarImagen(id_imagen, url_imagen, element) {
-        if (confirm('¿Estás seguro de que quieres eliminar esta imagen?')) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../../app/controller/imagenes/delete.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-            // Manejar la respuesta del servidor
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var respuesta = xhr.responseText;
-                    if (respuesta.trim() === 'success') {
-                        // Eliminar la imagen del DOM
-                        var card = element.closest('.col-md-4');
-                        card.remove();
-                    } else {
-                        alert('Error al eliminar la imagen: ' + respuesta);
-                    }
-                }
-            };
 
-            // Enviar la solicitud con los datos necesarios
-            xhr.send('id_imagen=' + id_imagen + '&url_imagen=' + encodeURIComponent(url_imagen));
-        }
-    }
-</script>
-
-<?php include '../layouts/footer.php'; ?>
+<?php
+// include '../layouts/modal.php';
+include '../layouts/footer.php'; ?>

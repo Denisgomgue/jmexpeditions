@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +24,7 @@ header {
     position: absolute;
     z-index: 1000;
     background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 30%, rgba(2, 0, 36, 0.8405365126676603) 50%, rgba(4, 0, 79, 0) 75%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(180deg, rgb(3, 0, 17) 30%, rgba(5, 0, 104, 0.841) 50%, rgba(4, 0, 79, 0) 75%, rgba(0, 0, 0, 0) 100%);
 
     .logo {
         padding: 10px;
@@ -91,8 +92,8 @@ header {
     background-size: cover;
     z-index: 0;
     transition: 1s;
-    
-    img{
+
+    img {
 
         &:hover {
             filter: brightness(0.8) drop-shadow(0 0 10px rgba(5, 0, 51, 0.849)); // Oscurecer y agregar sombra
@@ -167,14 +168,16 @@ header {
     /* Limita el tamaño máximo */
     text-align: left;
     color: #fff;
-    .title{
-        display: block;
-        font-size: 10px;
-        // animation: animat 0.6s ease-in;
-    }
-    .ubicacion{
-        display: none;
-    }
+    display: none;
+
+    // .title {
+    //     display: block;
+    //     font-size: 10px;
+    //     // animation: animat 0.6s ease-in;
+    // }
+
+    // .ubicacion {
+    // }
 }
 
 .list .item:nth-child(2) .content {
@@ -182,22 +185,14 @@ header {
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-    .ubicacion{
-        display: flex;
-        font-family: "Monserat", sans-serif;
-
-
-    }
-    .title{
-        font-size: 60px;
-        
-    }
+    font-family: "Monserat", sans-serif;
+    
 }
 
 .content .title {
     // z-index: 1000;
-    // font-size: 2rem;
-    
+    font-size: 4rem;
+
     backdrop-filter: blur(1px);
     text-transform: capitalize;
     color: #fff;
@@ -207,6 +202,7 @@ header {
     animation: animate 1s ease-in-out 0.3s 1 forwards;
     font-family: "Monserat", sans-serif;
     letter-spacing: 1px;
+
     &hover {
         backdrop-filter: blur(10px);
 
@@ -219,14 +215,17 @@ header {
     // margin-top: 1rem;
     // font-weight: bold;
     line-height: 1;
-    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+    // text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
     opacity: 0;
     animation: animate 1s ease-in-out 0.6s 1 forwards;
     border-radius: 10px;
-    padding: 10px ;
+    padding: 10px;
     max-width: max-content;
-    color: #ffffff;
-    // background-color: rgb(255, 153, 0);
+    color: #a3a3ff;
+    background-color: rgba(6, 5, 34, 0.841);
+    // background-color: rgb(255, 255, 255);
+    display: flex;
+
 }
 
 .content .des {
@@ -240,6 +239,7 @@ header {
     backdrop-filter: blur(2px);
     padding: 20px;
     border-radius: 20px;
+
     &:hover {
         background-color: rgba(0, 0, 0, 0.575);
         text-shadow: 0px 0px 20px rgb(0, 0, 0);
@@ -271,14 +271,14 @@ header {
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
-    
+
     &:hover {
         //background-color: #ff9900;
         opacity: 1.2;
         outline: solid #fff;
         box-shadow: 0px 0px 20px black;
     }
-    
+
 }
 
 .content .btn button:nth-child(2) {

@@ -45,7 +45,8 @@ include '../layouts/header.php';
                                     <div class="col-md-6">
                                         <div class="image-upload">
                                             <label for="foto3" class="upload-box">
-                                                <i class="fas fa-upload h-10"><span class="sm"> Subir imagen</span></i>
+                                                <i class="fas fa-upload h-10"></i>
+                                                <span class="sm"> Subir imagen</span>
                                                 <input type="file" id="foto3" name="url_imagen" accept="image/*" class="upload-input-img">
                                             </label>
                                         </div>
