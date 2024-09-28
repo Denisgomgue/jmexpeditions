@@ -1,4 +1,5 @@
 <?php
+
 // Obtener la IP del servidor
 $server_ip = $_SERVER['SERVER_ADDR'];
 
@@ -10,6 +11,7 @@ if ($server_ip === '127.0.0.1' || $server_ip === '::1') {
     // Si accedes desde otra IP (por ejemplo, tu IP local en la red)
     $URL = 'http://' . $server_ip . '/jmexpeditions/';
 }
+
 
 define('BASE_PATH', dirname(__DIR__));
 define('SERVIDOR', 'localhost');

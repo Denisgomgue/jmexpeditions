@@ -21,7 +21,10 @@ include '../../app/controller/destinos/create.php';
 <div class="container">
   <div class="page-inner">
     <div class="page-header">
+
       <h3 class="fw-bold mb-3">Destinos</h3>
+
+
       <ul class="breadcrumbs mb-3">
         <li class="nav-home">
           <a href="#">
@@ -192,10 +195,12 @@ include '../../app/controller/destinos/create.php';
   }
 
   //verificar la existencia del destino mediante nombres
+
 </script>
 
 <?php
 include '../layouts/modal.php';
 include '../layouts/forms.php';
 include '../layouts/footer.php';
+
 ?>

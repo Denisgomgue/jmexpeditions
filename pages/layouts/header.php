@@ -268,6 +268,7 @@
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#paquetes">
                 <i class="fas fa-folder"></i>
+
                 <p>Paquetes turisticos</p>
                 <span class="caret"></span>
               </a>
@@ -284,11 +285,13 @@
                     </a>
                   </li>
 
+
                   <!-- <li>
                     <a href="<?php echo $URL; ?>pages/paquetes/ver-paquetes.php">
                       <span class="sub-item">Vista</span>
                     </a>
                   </li> -->
+
 
                 </ul>
               </div>
@@ -323,6 +326,7 @@
                 </ul>
               </div>
             </li>
+
 
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#tables">
@@ -368,6 +372,7 @@
                 </ul>
               </div>
             </li>
+
             <!-- <li class="nav-item">
                 <a href="widgets.html">
                   <i class="fas fa-desktop"></i>

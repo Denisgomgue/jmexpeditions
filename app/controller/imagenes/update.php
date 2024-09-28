@@ -1,6 +1,8 @@
 <?php
 // Incluir la conexión a la base de datos y configuración
+
 require_once dirname(__DIR__) . '/config.php';
+
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "UPDATE imagenes_destinos 
             SET id_destino = :id_destino, descripcion_imagen = :descripcion_imagen";
 
+
+
+
     // Si se subió una nueva imagen, agregarla a la consulta
     if ($nueva_imagen_url) {
         $sql .= ", url_imagen = :url_imagen";
@@ -59,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt->execute($params);
 
+
         // Obtener el nombre del destino según el id_destino
         $queryDestino = $pdo->prepare("SELECT nombre_destino FROM destinos WHERE id_destino = :id_destino");
         $queryDestino->execute([':id_destino' => $id_destino]);
@@ -74,6 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Error: No se encontró el destino.";
             exit();
         }
+
+
     } catch (PDOException $e) {
         // Mostrar error si algo salió mal
         echo "Error: " . $e->getMessage();

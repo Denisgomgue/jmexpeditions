@@ -20,11 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         && isset($_POST['tipo_paquete']) && isset($_POST['noche_paquete'])) { // Agregar noche_paquete
 
         // Recibe los valores del formulario
+
         $nombre_paquete = $_POST['nombre_paquete'];
         $duracion_paquete = $_POST['duracion_paquete'];
         $precio_paquete = $_POST['precio_paquete'];
         $disponibilidad_paquete = $_POST['disponibilidad_paquete'];
         $descripcion_paquete = $_POST['descripcion_paquete'];
+
         $tipo_paquete = $_POST['tipo_paquete'];
         $noche_paquete = $_POST['noche_paquete']; // Agregar el campo noche_paquete
 
@@ -39,18 +41,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit();
             } else {
                 // Redirige en caso de error en la inserción
+
                 header("Location: ../../../pages/paquetes/index.php?status=error&message=insert_error&entity=" . urlencode("Paquete"));
                 exit();
             }
         } catch (PDOException $e) {
+
             // Redirige en caso de error de base de datos
             header('Location: ../../../pages/paquetes/index.php?status=error&message=db_error');
             exit();
         }
     } else {
         // Redirige si faltan datos en el formulario
+
         header("Location: ../../../pages/paquetes/index.php?status=error&message=missing_data&entity=" . urlencode("Paquete"));
         exit();
     }
 }
-?>
+
+

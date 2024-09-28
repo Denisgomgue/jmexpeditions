@@ -75,6 +75,7 @@ $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStat
       <?php
       // Iterar a través de los resultados y generar una tarjeta para cada destino
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+<<<<<<< HEAD
         $id_destino = htmlspecialchars($row['id_destino']); // Definir la variable aquí
       ?>
         <div class="card contenedor-col ">
@@ -82,6 +83,18 @@ $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStat
             <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen1_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
             <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen2_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
             <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen3_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+=======
+      ?>
+        <div class="card contenedor-col ">
+          <div class="owl-carousel contenedor-images">
+
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen1_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen2_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+
+            <img class="card-img-top" src="<?php echo $URL; ?>public/uploads/<?php echo htmlspecialchars($row['imagen3_destino']); ?>" alt="Imagen de <?php echo htmlspecialchars($row['nombre_destino']); ?>" />
+
+>>>>>>> ececffb31b4569ea04761233f9b945eff14c19f6
           </div>
           <div class="contenedor-info p-3">
             <div class="card-post">
@@ -96,12 +109,15 @@ $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStat
                       <i class="fas fa-ruler-vertical text-secondary"> <a href="#"><?php echo htmlspecialchars($row['altitud_destino']); ?> <span>m.s.n.m</span></a></i>
                     </p>
                   </div>
+<<<<<<< HEAD
+=======
+                 
+>>>>>>> ececffb31b4569ea04761233f9b945eff14c19f6
                   <p class="text-primary">
                     <span class="tag badge badge-secondary"><?php echo htmlspecialchars($row['nombre_departamento']); ?></span>
                     <span class="text-muted"> | </span>
                     <span class="tag badge badge-info"><?php echo htmlspecialchars($row['nombre_provincia']); ?></span>
-                  </p>
-                </div>
+                  <                </div>
               </div>
               <div class="card-body">
                 <!-- 
@@ -116,6 +132,7 @@ $stmt = $pdo->query($query); // Ejecuta la consulta y devuelve un objeto PDOStat
         </div>
       <?php
       }
+
 
       ?>
     </div>

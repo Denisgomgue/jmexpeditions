@@ -1,4 +1,5 @@
 <?php
+
 require_once dirname(__DIR__) . '/config.php'; // Asegúrate de que la ruta sea correcta
 
 /**
@@ -22,6 +23,7 @@ try {
         pa.tipo_paquete as tipo_paquete,  -- Nuevo campo
         pa.precio_paquete as precio_paquete,      -- Cambiado según el nuevo esquema
         pa.noches_paquete as noches_paquete,      -- Cambiado según el nuevo esquema
+
         pa.disponibilidad_paquete as disponibilidad_paquete 
         FROM paquetes as pa";
 
@@ -32,6 +34,7 @@ try {
 
     // Verificar si se obtienen datos
     if ($paquetes_datos === false) {
+
         echo "Error en la consulta: ";
         var_dump($query_paquetes->errorInfo());
     } elseif (empty($paquetes_datos)) {
@@ -43,3 +46,4 @@ try {
 } catch (PDOException $e) {
     echo "Error en la consulta: " . $e->getMessage();
 }
+

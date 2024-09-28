@@ -7,6 +7,7 @@ include '../../app/controller/paquetes/create.php';
     <div class="page-inner">
         <div class="page-header">
             <h3 class="fw-bold mb-3">Paquetes</h3>
+
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -80,6 +81,7 @@ include '../../app/controller/paquetes/create.php';
                             </div>
                             <div class="card-action">
                                 <button type="submit" class="btn btn-success" data-entity="Paquete">Registrar Paquete</button>
+
                                 <button type="reset" class="btn btn-danger">Nuevo</button>
                             </div>
                         </form>
@@ -196,5 +198,7 @@ include '../../app/controller/paquetes/create.php';
 <?php
 include '../layouts/modal.php';
 // include '../layouts/forms.php';
+
+
 include '../layouts/footer.php';
 ?>

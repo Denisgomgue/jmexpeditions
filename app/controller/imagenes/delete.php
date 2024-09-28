@@ -22,6 +22,7 @@ if (isset($_POST['id_imagen']) && filter_var($_POST['id_imagen'], FILTER_VALIDAT
         // Eliminar el registro de la imagen de la base de datos
         $stmt = $pdo->prepare("DELETE FROM imagenes_destinos WHERE id_imagen = ?");
         if ($stmt->execute([$id_imagen])) {
+
             $rutaImagen = __DIR__ . '/../../../public/uploads/photos/' . $imagen['url_imagen'];
             var_dump($rutaImagen);  // Imprimir ruta para comprobar
 
@@ -42,6 +43,7 @@ if (isset($_POST['id_imagen']) && filter_var($_POST['id_imagen'], FILTER_VALIDAT
             exit();
         } else {
             $pdo->rollBack();
+
             header("Location: ../../../pages/galerias/detalle-destino.php?status=error&message=error_eliminando&entity=Imagen");
             exit();
         }
@@ -54,4 +56,6 @@ if (isset($_POST['id_imagen']) && filter_var($_POST['id_imagen'], FILTER_VALIDAT
         header("Location: ../../../pages/galerias/detalle-destino.php?status=error&message=" . urlencode($e->getMessage()) . "&entity=Imagen");
         exit();
     }
+
 }
+

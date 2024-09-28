@@ -8,7 +8,6 @@ if (isset($_GET['id'])) {
 
     try {
 
-
         $sql = "SELECT * FROM itinerarios WHERE id_itinerario = :id_itinerario";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':id_itinerario' => $id_itinerario]);
@@ -16,10 +15,12 @@ if (isset($_GET['id'])) {
 
         $hora_salida = isset($itinerario['hora_salida']) ? substr($itinerario['hora_salida'], 0, 5) : '00:00';
 
+
         // Verificar si se obtuvieron datos del itinerario
         if (!$itinerario) {
             die("Itinerario no encontrado.");
         }
+
 
         // Obtener los paquetes para mostrarlos en el select
         $sql_paquetes = "SELECT id_paquete, nombre_paquete FROM paquetes";
@@ -30,6 +31,7 @@ if (isset($_GET['id'])) {
         $sql_destinos = "SELECT id_destino, nombre_destino FROM destinos";
         $stmt_destinos = $pdo->query($sql_destinos);
         $destinos = $stmt_destinos->fetchAll(PDO::FETCH_ASSOC);
+
     } catch (PDOException $e) {
         die("Error al obtener los datos del itinerario: " . $e->getMessage());
     }
@@ -122,7 +124,6 @@ if (isset($_GET['id'])) {
                                             <label for="tipo_destino">Tipo de Destino</label>
                                             <input type="text" class="form-control" id="tipo_destino" name="tipo_destino" value="<?php echo htmlspecialchars($itinerario['tipo_destino']); ?>" required>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="descripcion_actividad">Descripción de la Actividad</label>
                                             <textarea class="form-control" id="descripcion_actividad" name="descripcion_actividad" rows="3" required><?php echo htmlspecialchars($itinerario['descripcion_actividad']); ?></textarea>
@@ -159,6 +160,7 @@ if (isset($_GET['id'])) {
                 }
 
                 ?>
+
             </div>
         </div>
     </div>

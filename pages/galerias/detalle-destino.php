@@ -24,6 +24,7 @@ if ($destino) {
 }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <link rel="stylesheet" href="<?php echo htmlspecialchars($URL); ?>public/css/galerias/crudImage.min.css" />
 
 <div class="container">
@@ -50,6 +51,7 @@ if ($destino) {
                 </li>
             </ul>
         </div>
+
         <div class="card">
             <div class="card-header">
                 <h3><?php echo htmlspecialchars($nombre_destino); ?></h3>

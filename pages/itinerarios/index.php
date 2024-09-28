@@ -2,6 +2,7 @@
 include '../../app/controller/config.php';
 include '../layouts/header.php';
 include '../../app/controller/itinerarios/listar-itinerarios.php'; 
+
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -9,6 +10,7 @@ include '../../app/controller/itinerarios/listar-itinerarios.php';
     <div class="page-inner">
         <div class="page-header">
             <h3 class="fw-bold mb-3">Itinerarios</h3>
+
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -20,6 +22,7 @@ include '../../app/controller/itinerarios/listar-itinerarios.php';
                 </li>
                 <li class="nav-item">
                     <a href="index.php">Itinerarios</a>
+
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
@@ -75,9 +78,11 @@ include '../../app/controller/itinerarios/listar-itinerarios.php';
                                     <th class="border-top-0">Paquete</th>
                                     <th class="border-top-0">Destino</th>
                                     <th class="border-top-0">Orden</th>
+
                                     <th class="border-top-0">Hora de salida</th>
                                     <th class="border-top-0">Tipo de Destino</th>
                                     
+
                                     <th class="border-top-0">Acciones</th>
                                 </tr>
                                 </thead>
@@ -92,6 +97,7 @@ include '../../app/controller/itinerarios/listar-itinerarios.php';
                                         $hora_salida = htmlspecialchars($itinerario['hora_salida']);
                                         $tipo_destino = htmlspecialchars($itinerario['tipo_destino']);
                                         
+
                                     ?>
                                         <tr>
                                             <td>
@@ -100,6 +106,7 @@ include '../../app/controller/itinerarios/listar-itinerarios.php';
                                             <td><?php echo $nombre_paquete; ?></td>
                                             <td><?php echo $nombre_destino; ?></td>
                                             <td><?php echo $orden_itinerario; ?></td>
+
                                             <td><?php echo $hora_salida; ?></td>
                                             <td><?php echo $tipo_destino; ?></td>
                                             

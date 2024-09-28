@@ -21,6 +21,7 @@ try {
         i.orden_itinerario, 
         i.tipo_destino, 
         i.hora_salida, 
+
         i.descripcion_actividad 
         FROM itinerarios i
         JOIN paquetes p ON i.id_paquete = p.id_paquete

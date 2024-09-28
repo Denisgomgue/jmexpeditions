@@ -112,11 +112,14 @@ include '../../app/controller/itinerarios/create.php';
                                     </div>
                                 </div>
                                 <!-- Tipo de Destino -->
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tipo_destino">Tipo destino</label>
                                         <select class="form-control" id="tipo_destino" name="tipo_destino" required>
+
                                             <option selected>--- Seleccione un tipo de destino ---</option>
+
                                             <option value="Transitorio">Transitorio</option>
                                             <option value="Final">Final</option>
                                         </select>
@@ -128,6 +131,8 @@ include '../../app/controller/itinerarios/create.php';
                                         <textarea class="form-control" id="descripcion_actividad" name="descripcion_actividad" rows="3" required></textarea>
                                     </div>
                                 </div>
+
+
                             </div>
 
                             <!-- Botones de acción -->

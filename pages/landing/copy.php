@@ -43,11 +43,9 @@ $stmt = $pdo->query($query); // Ejecuta la consulta
     <div class="carousel">
         <div class="list">
             <?php
-
             // Iterar a través de los destinos y crear cada ítem del carrusel
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 // Arreglo con las tres imágenes del destino
-
                 $imagenes = [
                     $row['imagen1_destino'],
                     $row['imagen2_destino'],

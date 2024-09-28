@@ -18,6 +18,7 @@ $destinos = $stmt_destinos->fetchAll();
 
 <div class="container">
     <div class="page-inner">
+
     <div class="page-header">
             <h3 class="fw-bold mb-3">Galeria</h3>
             <ul class="breadcrumbs mb-3">
@@ -35,6 +36,7 @@ $destinos = $stmt_destinos->fetchAll();
                 
             </ul>
         </div>
+
         <div class="row galeria">
             <?php foreach ($destinos as $destino): ?>
                 <div class="col-md-4 mb-4">
